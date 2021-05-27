@@ -37,6 +37,7 @@ const ColorGrids = () => {
       <Head>
         <title>Rainbow Dance Party</title>
         <meta name="description" content="Rainbow Dance Party" />
+        <meta name="author" content="Bronson Avila" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
