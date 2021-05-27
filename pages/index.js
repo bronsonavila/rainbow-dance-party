@@ -5,7 +5,7 @@ const ColorGrids = () => {
   const [cellSize, setCellSize] = useState(16);
   const [colorRange, setColorRange] = useState(360);
   const [columns, setColumns] = useState(16);
-  const [maxColorGrids, setMaxColorGrids] = useState(15);
+  const [maxColorGrids, setMaxColorGrids] = useState(8);
   const [multiplier, setMultiplier] = useState(2.333);
   const [rows, setRows] = useState(16);
   const [showBorders, setShowBorders] = useState(true);
@@ -131,12 +131,13 @@ const ColorGrids = () => {
         .color-grids {
           display: flex;
           flex-wrap: wrap;
+          margin: 1rem 0 1rem 1rem;
         }
 
         .controls {
           display: flex;
           flex-direction: column;
-          margin-bottom: 1rem;
+          margin: 1rem 0 1rem 1rem;
         }
 
         input:not([type='checkbox']) {
@@ -155,7 +156,8 @@ const ColorGrids = () => {
         }
 
         main {
-          margin: 1rem 0 1rem 1rem;
+          margin: 0 auto;
+          max-width: 70rem;
         }
 
         select {
