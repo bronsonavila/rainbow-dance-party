@@ -13,33 +13,23 @@ const ColorGrids = () => {
   const [showBorders, setShowBorders] = useState(true);
   const [step, setStep] = useState('0.001');
 
+  const getDecimalPlaces = () => step.split('.')[1]?.length || 0;
+
+  // Toggle auto incrementer on/off.
   useEffect(() => {
     clearInterval(autoIncrementTimerRef.current);
     if (isAutoIncrementing) {
       autoIncrementTimerRef.current = setInterval(() => {
-        setMultiplier((multiplier) => Number(multiplier) + Number(step));
+        setMultiplier((multiplier) =>
+          (Number(multiplier) + Number(step)).toFixed(getDecimalPlaces())
+        );
       }, 100);
     }
   }, [isAutoIncrementing, step]);
 
+  // Adjust multiplier's decimal places based on chosen step value.
   useEffect(() => {
-    switch (step) {
-      case '1':
-        setMultiplier(Number(multiplier).toFixed(0));
-        break;
-      case '0.1':
-        setMultiplier(Number(multiplier).toFixed(1));
-        break;
-      case '0.01':
-        setMultiplier(Number(multiplier).toFixed(2));
-        break;
-      case '0.001':
-        setMultiplier(Number(multiplier).toFixed(3));
-        break;
-      case '0.0001':
-        setMultiplier(Number(multiplier).toFixed(4));
-        break;
-    }
+    setMultiplier(Number(multiplier).toFixed(getDecimalPlaces()));
   }, [step]);
 
   return (
@@ -86,6 +76,7 @@ const ColorGrids = () => {
           <label>
             <span>Max Grids</span>
             <input
+              min="1"
               onChange={(e) =>
                 setMaxColorGrids(e.target.value ? Number(e.target.value) : '')
               }
@@ -96,6 +87,7 @@ const ColorGrids = () => {
           <label>
             <span>Multiplier</span>
             <input
+              min="0"
               onChange={(e) =>
                 setMultiplier(e.target.value ? Number(e.target.value) : '')
               }
@@ -170,7 +162,7 @@ const ColorGrids = () => {
 
         input:not([type='checkbox']) {
           margin-right: 3rem;
-          width: 4rem;
+          width: 5rem;
         }
 
         label {
@@ -191,7 +183,7 @@ const ColorGrids = () => {
 
         select {
           margin-right: 3rem;
-          width: 4rem;
+          width: 5rem;
         }
 
         @media (min-width: 391px) {
