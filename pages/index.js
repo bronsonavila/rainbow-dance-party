@@ -135,33 +135,73 @@ const ColorGrids = () => {
         }
 
         .controls {
+          align-items: center;
+          background-color: aliceblue;
+          border-bottom: 1px solid #2b2b2b;
           display: flex;
-          flex-direction: column;
-          margin: 1rem 0 1rem 1rem;
-        }
-
-        input:not([type='checkbox']) {
-          margin-bottom: 0.25rem;
-          width: 7rem;
+          flex-wrap: wrap;
+          left: 50%;
+          max-width: 70rem;
+          margin: 0 auto;
+          padding: 1rem 1rem 0.5rem;
+          position: fixed;
+          top: 0;
+          transform: translateX(-50%);
+          width: 100%;
         }
 
         input[type='checkbox'] {
           margin: 0.5rem 0;
         }
 
+        input:not([type='checkbox']) {
+          margin-right: 3rem;
+          width: 4rem;
+        }
+
+        label {
+          align-items: center;
+          display: flex;
+          margin-bottom: 0.5rem;
+        }
+
         label span {
           display: inline-block;
-          width: 7rem;
-          margin-right: 1rem;
+          margin-right: 0.75rem;
         }
 
         main {
-          margin: 0 auto;
+          margin: 14rem auto 0;
           max-width: 70rem;
         }
 
         select {
-          width: 7rem;
+          margin-right: 3rem;
+          width: 4rem;
+        }
+
+        @media (min-width: 391px) {
+          main {
+            margin-top: 12rem;
+          }
+        }
+
+        @media (min-width: 414px) {
+          main {
+            margin-top: 11rem;
+          }
+        }
+
+        @media (min-width: 519px) {
+          main {
+            margin-top: 9rem;
+          }
+        }
+
+        @media (min-width: 720px) {
+          main {
+            margin-top: 7rem;
+          }
         }
       `}</style>
     </>
