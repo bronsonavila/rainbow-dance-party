@@ -159,7 +159,7 @@ const ColorGrids = () => {
         }
 
         input[type='checkbox'] {
-          margin: 0.5rem 3rem 0.5rem 0;
+          margin: 0.3rem 3rem 0.2rem 0;
         }
 
         input:not([type='checkbox']) {
@@ -180,7 +180,7 @@ const ColorGrids = () => {
         }
 
         main {
-          margin: 14rem auto 0;
+          margin: 17rem auto 0;
         }
 
         select {
@@ -190,25 +190,31 @@ const ColorGrids = () => {
 
         @media (min-width: 391px) {
           main {
-            margin-top: 12rem;
+            margin-top: 16rem;
           }
         }
 
         @media (min-width: 414px) {
           main {
-            margin-top: 11rem;
+            margin-top: 14rem;
           }
         }
 
         @media (min-width: 519px) {
           main {
-            margin-top: 9rem;
+            margin-top: 10rem;
           }
         }
 
         @media (min-width: 720px) {
           main {
-            margin-top: 7rem;
+            margin-top: 8rem;
+          }
+        }
+
+        @media (min-width: 1568px) {
+          main {
+            margin-top: 6rem;
           }
         }
       `}</style>
