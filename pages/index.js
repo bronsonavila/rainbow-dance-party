@@ -35,8 +35,8 @@ const ColorGrids = () => {
   return (
     <>
       <Head>
-        <title>Color Grids</title>
-        <meta name="description" content="Color Grids" />
+        <title>Rainbow Dance Party</title>
+        <meta name="description" content="Rainbow Dance Party" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
