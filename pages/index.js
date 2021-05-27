@@ -135,17 +135,13 @@ const ColorGrids = () => {
         }
 
         .controls {
-          align-items: center;
           background-color: #f5f7f9;
           border-bottom: 1px solid #3c3c3c;
           display: flex;
           flex-wrap: wrap;
-          left: 50%;
-          margin: 0 auto;
           padding: 1rem 1rem 0.5rem;
           position: fixed;
           top: 0;
-          transform: translateX(-50%);
           width: 100%;
         }
 
