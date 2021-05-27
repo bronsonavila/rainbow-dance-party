@@ -136,12 +136,11 @@ const ColorGrids = () => {
 
         .controls {
           align-items: center;
-          background-color: aliceblue;
-          border-bottom: 1px solid #2b2b2b;
+          background-color: #f5f7f9;
+          border-bottom: 1px solid #3c3c3c;
           display: flex;
           flex-wrap: wrap;
           left: 50%;
-          max-width: 70rem;
           margin: 0 auto;
           padding: 1rem 1rem 0.5rem;
           position: fixed;
@@ -166,13 +165,13 @@ const ColorGrids = () => {
         }
 
         label span {
+          color: #1a1a1a;
           display: inline-block;
           margin-right: 0.75rem;
         }
 
         main {
           margin: 14rem auto 0;
-          max-width: 70rem;
         }
 
         select {
@@ -233,7 +232,6 @@ const ColorGrid = ({
               return (
                 <div
                   className="color-grid__cell"
-                  id={cellNumber}
                   key={cellNumber}
                   style={{
                     backgroundColor: `hsl(${setHue(cellNumber)}, 100%, 50%)`,
@@ -246,7 +244,7 @@ const ColorGrid = ({
       </div>
       <style jsx>{`
         .color-grid {
-          border: ${showBorders ? '1px solid #2b2b2b' : 0};
+          border: ${showBorders ? '1px solid #3c3c3c' : 0};
           display: flex;
           flex-direction: row;
           margin-bottom: 1rem;
@@ -262,7 +260,7 @@ const ColorGrid = ({
 
         .color-grid__cell {
           background: #fff;
-          border: ${showBorders ? '1px solid #2b2b2b' : 0};
+          border: ${showBorders ? '1px solid #3c3c3c' : 0};
           height: ${cellSize}px;
           width: ${cellSize}px;
         }
