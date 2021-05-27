@@ -253,7 +253,8 @@ const ColorGrid = ({
       </div>
       <style jsx>{`
         .color-grid {
-          border: ${showBorders ? '1px solid #3c3c3c' : 0};
+          border-left: ${showBorders ? '1px solid #3c3c3c' : 0};
+          border-top: ${showBorders ? '1px solid #3c3c3c' : 0};
           display: flex;
           flex-direction: row;
           margin-bottom: 1rem;
@@ -268,8 +269,8 @@ const ColorGrid = ({
         }
 
         .color-grid__cell {
-          background: #fff;
-          border: ${showBorders ? '1px solid #3c3c3c' : 0};
+          border-bottom: ${showBorders ? '1px solid #3c3c3c' : 0};
+          border-right: ${showBorders ? '1px solid #3c3c3c' : 0};
           height: ${cellSize}px;
           width: ${cellSize}px;
         }
