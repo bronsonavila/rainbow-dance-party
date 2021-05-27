@@ -1,15 +1,26 @@
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const ColorGrids = () => {
+  const autoIncrementTimerRef = useRef(null);
   const [cellSize, setCellSize] = useState(16);
   const [colorRange, setColorRange] = useState(360);
   const [columns, setColumns] = useState(16);
+  const [isAutoIncrementing, setIsAutoIncrementing] = useState(false);
   const [maxColorGrids, setMaxColorGrids] = useState(8);
   const [multiplier, setMultiplier] = useState(2.333);
   const [rows, setRows] = useState(16);
   const [showBorders, setShowBorders] = useState(true);
   const [step, setStep] = useState('0.001');
+
+  useEffect(() => {
+    clearInterval(autoIncrementTimerRef.current);
+    if (isAutoIncrementing) {
+      autoIncrementTimerRef.current = setInterval(() => {
+        setMultiplier((multiplier) => Number(multiplier) + Number(step));
+      }, 100);
+    }
+  }, [isAutoIncrementing, step]);
 
   useEffect(() => {
     switch (step) {
@@ -104,6 +115,14 @@ const ColorGrids = () => {
             </select>
           </label>
           <label>
+            <span>Auto Increment</span>
+            <input
+              checked={isAutoIncrementing}
+              onChange={() => setIsAutoIncrementing(!isAutoIncrementing)}
+              type="checkbox"
+            />
+          </label>
+          <label>
             <span>Show Borders</span>
             <input
               checked={showBorders}
@@ -146,7 +165,7 @@ const ColorGrids = () => {
         }
 
         input[type='checkbox'] {
-          margin: 0.5rem 0;
+          margin: 0.5rem 3rem 0.5rem 0;
         }
 
         input:not([type='checkbox']) {
