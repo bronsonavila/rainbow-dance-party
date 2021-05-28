@@ -243,7 +243,7 @@ const ColorGrid = ({
     Math.round(
       ((cellNumber * colorRange) / (columns * rows)) *
         Math.pow(multiplier, index)
-    ) % 360;
+    ) % colorRange;
 
   return (
     <>
