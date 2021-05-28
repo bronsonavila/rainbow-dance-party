@@ -15,6 +15,8 @@ const ColorGrids = () => {
 
   const getDecimalPlaces = () => step.split('.')[1]?.length || 0;
 
+  const handleInputFocus = (e) => e.target.select();
+
   // Toggle auto incrementer on/off.
   useEffect(() => {
     clearInterval(autoIncrementTimerRef.current);
@@ -48,6 +50,7 @@ const ColorGrids = () => {
             <input
               min="1"
               onChange={(e) => setCellSize(e.target.value)}
+              onFocus={handleInputFocus}
               type="number"
               value={cellSize}
             />
@@ -59,6 +62,7 @@ const ColorGrids = () => {
               onChange={(e) =>
                 setColumns(e.target.value ? Number(e.target.value) : '')
               }
+              onFocus={handleInputFocus}
               type="number"
               value={columns}
             />
@@ -70,6 +74,7 @@ const ColorGrids = () => {
               onChange={(e) =>
                 setRows(e.target.value ? Number(e.target.value) : '')
               }
+              onFocus={handleInputFocus}
               type="number"
               value={rows}
             />
@@ -81,6 +86,7 @@ const ColorGrids = () => {
               onChange={(e) =>
                 setMaxColorGrids(e.target.value ? Number(e.target.value) : '')
               }
+              onFocus={handleInputFocus}
               type="number"
               value={maxColorGrids}
             />
@@ -92,6 +98,7 @@ const ColorGrids = () => {
               onChange={(e) =>
                 setMultiplier(e.target.value ? Number(e.target.value) : '')
               }
+              onFocus={handleInputFocus}
               step={step}
               type="number"
               value={multiplier}
@@ -140,6 +147,7 @@ const ColorGrids = () => {
           ))}
         </div>
       </main>
+
       <style jsx>{`
         .color-grids {
           display: flex;
@@ -257,6 +265,7 @@ const ColorGrid = ({
           </div>
         ))}
       </div>
+
       <style jsx>{`
         .color-grid {
           border-left: ${showBorders ? '1px solid #3c3c3c' : 0};
