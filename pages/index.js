@@ -243,7 +243,7 @@ const ColorGrid = ({
     Math.round(
       ((cellNumber * colorRange) / (columns * rows)) *
         Math.pow(multiplier, index)
-    ) % colorRange;
+    ) % colorRange || 0; // Default to `0` if value of `Infinity` is reached.
 
   return (
     <>
