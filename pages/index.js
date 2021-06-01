@@ -1,5 +1,10 @@
+import { SettingFilled, SettingOutlined } from '@ant-design/icons';
+import { Button, InputNumber, Layout, Select, Switch } from 'antd';
 import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
+
+const { Sider } = Layout;
+const { Option } = Select;
 
 const ColorGrids = () => {
   const autoIncrementTimerRef = useRef(null);
@@ -7,10 +12,11 @@ const ColorGrids = () => {
   const [colorRange, setColorRange] = useState(360);
   const [columns, setColumns] = useState(16);
   const [isAutoIncrementing, setIsAutoIncrementing] = useState(false);
-  const [maxColorGrids, setMaxColorGrids] = useState(8);
+  const [iterations, setIterations] = useState(8);
   const [multiplier, setMultiplier] = useState(2.333);
   const [rows, setRows] = useState(16);
   const [showBorders, setShowBorders] = useState(true);
+  const [showMobileSettings, setShowMobileSettings] = useState(false);
   const [step, setStep] = useState('0.001');
 
   const getDecimalPlaces = () => step.split('.')[1]?.length || 0;
@@ -43,97 +49,117 @@ const ColorGrids = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <div className="controls">
-          <label>
-            <span>Cell Size</span>
-            <input
-              min="1"
-              onChange={(e) => setCellSize(e.target.value)}
-              onFocus={handleInputFocus}
-              type="number"
-              value={cellSize}
-            />
-          </label>
-          <label>
-            <span>Columns</span>
-            <input
-              min="1"
-              onChange={(e) =>
-                setColumns(e.target.value ? Number(e.target.value) : '')
-              }
-              onFocus={handleInputFocus}
-              type="number"
-              value={columns}
-            />
-          </label>
-          <label>
-            <span>Rows</span>
-            <input
-              min="1"
-              onChange={(e) =>
-                setRows(e.target.value ? Number(e.target.value) : '')
-              }
-              onFocus={handleInputFocus}
-              type="number"
-              value={rows}
-            />
-          </label>
-          <label>
-            <span>Max Grids</span>
-            <input
-              min="1"
-              onChange={(e) =>
-                setMaxColorGrids(e.target.value ? Number(e.target.value) : '')
-              }
-              onFocus={handleInputFocus}
-              type="number"
-              value={maxColorGrids}
-            />
-          </label>
-          <label>
-            <span>Multiplier</span>
-            <input
-              min="0"
-              onChange={(e) =>
-                setMultiplier(e.target.value ? Number(e.target.value) : '')
-              }
-              onFocus={handleInputFocus}
-              step={step}
-              type="number"
-              value={multiplier}
-            />
-          </label>
-          <label>
-            <span>Step</span>
-            <select onChange={(e) => setStep(e.target.value)} value={step}>
-              <option value="1">1</option>
-              <option value="0.1">0.1</option>
-              <option value="0.01">0.01</option>
-              <option value="0.001">0.001</option>
-              <option value="0.0001">0.0001</option>
-              <option value="0.00001">0.00001</option>
-            </select>
-          </label>
-          <label>
-            <span>Auto Increment</span>
-            <input
-              checked={isAutoIncrementing}
-              onChange={() => setIsAutoIncrementing(!isAutoIncrementing)}
-              type="checkbox"
-            />
-          </label>
-          <label>
-            <span>Show Borders</span>
-            <input
-              checked={showBorders}
-              onChange={(e) => setShowBorders(e.target.checked)}
-              type="checkbox"
-            />
-          </label>
-        </div>
+      <Layout>
+        <Button
+          icon={showMobileSettings ? <SettingOutlined /> : <SettingFilled />}
+          onClick={() => setShowMobileSettings(!showMobileSettings)}
+          shape="circle"
+          size="large"
+        />
+        <Sider
+          breakpoint="md"
+          className={`${showMobileSettings ? 'show-mobile-settings' : ''}`}
+          onBreakpoint={(broken) => {
+            if (!broken) setShowMobileSettings(false);
+          }}
+        >
+          <div className="settings__group">
+            <h2>Grid Options</h2>
+            <label>
+              <span>Cell Size</span>
+              <InputNumber
+                min={1}
+                onChange={(value) => setCellSize(value)}
+                onFocus={handleInputFocus}
+                size="small"
+                value={cellSize}
+              />
+            </label>
+            <label>
+              <span>Columns</span>
+              <InputNumber
+                min={1}
+                onChange={(value) => setColumns(value)}
+                onFocus={handleInputFocus}
+                size="small"
+                value={columns}
+              />
+            </label>
+            <label>
+              <span>Rows</span>
+              <InputNumber
+                min={1}
+                onChange={(value) => setRows(value)}
+                onFocus={handleInputFocus}
+                size="small"
+                value={rows}
+              />
+            </label>
+            <label>
+              <span>Iterations</span>
+              <InputNumber
+                min={1}
+                onChange={(value) => setIterations(value)}
+                onFocus={handleInputFocus}
+                size="small"
+                value={iterations}
+              />
+            </label>
+            <label>
+              <span>Show Borders</span>
+              <Switch
+                checked={showBorders}
+                onChange={(value) => setShowBorders(value)}
+                size="small"
+              />
+            </label>
+          </div>
+          <div className="settings__group">
+            <h2>Color Options</h2>
+            <label>
+              <span>Multiplier</span>
+              <InputNumber
+                min={0}
+                onChange={(value) => setMultiplier(value)}
+                onFocus={handleInputFocus}
+                size="small"
+                step={step}
+                value={multiplier}
+              />
+            </label>
+            <label>
+              <span>Step</span>
+              <Select
+                defaultValue={step}
+                // See: https://github.com/ant-design/ant-design/issues/5130#issuecomment-283629010
+                dropdownAlign={{
+                  points: showMobileSettings ? ['bl', 'tl'] : ['tl', 'bl'],
+                  offset: showMobileSettings ? [0, -4] : [0, 4],
+                }}
+                dropdownMatchSelectWidth={false}
+                onChange={(value) => setStep(value)}
+                size="small"
+              >
+                <Option value="1">1</Option>
+                <Option value="0.1">0.1</Option>
+                <Option value="0.01">0.01</Option>
+                <Option value="0.001">0.001</Option>
+                <Option value="0.0001">0.0001</Option>
+                <Option value="0.00001">0.00001</Option>
+              </Select>
+            </label>
+            <label>
+              <span>Auto Increment</span>
+              <Switch
+                checked={isAutoIncrementing}
+                onChange={(value) => setIsAutoIncrementing(value)}
+                size="small"
+              />
+            </label>
+          </div>
+        </Sider>
         <div className="color-grids">
-          {[...Array(maxColorGrids)].map((colorGrid, index) => (
+          {[...Array(iterations)].map((colorGrid, index) => (
             <ColorGrid
               cellSize={cellSize}
               colorRange={colorRange}
@@ -146,84 +172,25 @@ const ColorGrids = () => {
             />
           ))}
         </div>
-      </main>
+      </Layout>
 
       <style jsx>{`
         .color-grids {
           display: flex;
           flex-wrap: wrap;
-          margin: 1rem 0 1rem 1rem;
+          justify-content: center;
+          margin: 1rem 0 3.5rem 1rem;
         }
 
-        .controls {
-          background-color: #f5f7f9;
-          border-bottom: 1px solid #3c3c3c;
-          display: flex;
-          flex-wrap: wrap;
-          padding: 1rem 1rem 0.5rem;
-          position: fixed;
-          top: 0;
-          width: 100%;
-        }
-
-        input[type='checkbox'] {
-          margin: 0.3rem 3rem 0.2rem 0;
-        }
-
-        input:not([type='checkbox']) {
-          margin-right: 3rem;
-          width: 5rem;
-        }
-
-        label {
-          align-items: center;
-          display: flex;
-          margin-bottom: 0.5rem;
-        }
-
-        label span {
-          color: #1a1a1a;
-          display: inline-block;
-          margin-right: 0.75rem;
-        }
-
-        main {
-          margin: 17rem auto 0;
-        }
-
-        select {
-          margin-right: 3rem;
-          width: 5rem;
-        }
-
-        @media (min-width: 391px) {
-          main {
-            margin-top: 16rem;
+        @media (min-width: 768px) {
+          .color-grids {
+            justify-content: flex-start;
+            margin: 1rem 0 0 216px;
           }
         }
 
-        @media (min-width: 414px) {
-          main {
-            margin-top: 14rem;
-          }
-        }
-
-        @media (min-width: 519px) {
-          main {
-            margin-top: 10rem;
-          }
-        }
-
-        @media (min-width: 720px) {
-          main {
-            margin-top: 8rem;
-          }
-        }
-
-        @media (min-width: 1568px) {
-          main {
-            margin-top: 6rem;
-          }
+        .settings__group:not(:last-of-type) {
+          margin-bottom: 2rem;
         }
       `}</style>
     </>
