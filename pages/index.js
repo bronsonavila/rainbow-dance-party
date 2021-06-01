@@ -65,13 +65,16 @@ const ColorGrids = () => {
         >
           <div className="settings__group">
             <h2>Grid Options</h2>
-            <InputNumber
-              min={1}
-              onChange={(value) => setCellSize(value)}
-              onFocus={handleInputFocus}
-              size="small"
-              value={cellSize}
-            />
+            <label>
+              <span>Cell Size</span>
+              <InputNumber
+                min={1}
+                onChange={(value) => setCellSize(value)}
+                onFocus={handleInputFocus}
+                size="small"
+                value={cellSize}
+              />
+            </label>
             <label>
               <span>Columns</span>
               <InputNumber

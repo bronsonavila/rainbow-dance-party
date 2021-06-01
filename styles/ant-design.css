@@ -34,8 +34,16 @@
 
 .ant-input-number,
 .ant-select {
-  /* height: 1.5rem;
-  width: 6rem; */
+  height: 1.5rem;
+  width: 6rem;
+}
+
+@media (max-width: 767px) {
+  .ant-input-number-handler-wrap {
+    border-left: 0;
+    opacity: 1;
+    width: 100%;
+  }
 }
 
 .ant-layout-sider {
