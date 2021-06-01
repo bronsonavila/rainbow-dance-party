@@ -4,6 +4,25 @@
   }
 }
 
+.ant-alert {
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+}
+
+@media (min-width: 768px) {
+  .ant-alert {
+    display: none;
+  }
+}
+
+.ant-alert-close-icon {
+  height: 100%;
+}
+
+.ant-alert-message {
+  font-size: 0.75rem;
+}
+
 .ant-btn {
   align-items: center;
   animation: rotate 60s linear infinite;
@@ -38,6 +57,7 @@
   width: 6rem;
 }
 
+/* Required due to InputNumber not displaying properly by default on mobile devices. */
 .is-mobile-device .ant-input-number-handler-wrap {
   border-left: 0;
   opacity: 1;
@@ -85,5 +105,7 @@
 }
 
 .ant-layout-sider-children {
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }

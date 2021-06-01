@@ -23,6 +23,11 @@ a:hover {
   color: #000000d9;
 }
 
+h4,
+h5 {
+  color: #b8b9bb;
+}
+
 label {
   align-items: center;
   display: flex;

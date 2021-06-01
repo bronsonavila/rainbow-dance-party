@@ -1,12 +1,12 @@
 import {
-  LogoutOutlined,
+  GithubOutlined,
   SettingFilled,
   SettingOutlined,
 } from '@ant-design/icons';
-import { Button, InputNumber, Layout, Select, Switch } from 'antd';
+import { Alert, Button, InputNumber, Layout, Select, Switch } from 'antd';
 import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
-import { getDeviceType } from '../utils';
+import { getDecimalPlaces, getDeviceType } from '../utils';
 
 const classNames = require('classnames');
 const { Sider } = Layout;
@@ -26,8 +26,6 @@ const ColorGrids = () => {
   const [showMobileSettings, setShowMobileSettings] = useState(false);
   const [step, setStep] = useState('0.001');
 
-  const getDecimalPlaces = () => step.split('.')[1]?.length || 0;
-
   const handleInputFocus = (e) => e.target.select();
 
   // Apply different InputNumber styles when running on mobile devices.
@@ -42,7 +40,7 @@ const ColorGrids = () => {
     if (isAutoIncrementing) {
       autoIncrementTimerRef.current = setInterval(() => {
         setMultiplier((multiplier) =>
-          (Number(multiplier) + Number(step)).toFixed(getDecimalPlaces())
+          (Number(multiplier) + Number(step)).toFixed(getDecimalPlaces(step))
         );
       }, 100);
     }
@@ -50,7 +48,7 @@ const ColorGrids = () => {
 
   // Adjust multiplier's decimal places based on chosen step value.
   useEffect(() => {
-    setMultiplier(Number(multiplier).toFixed(getDecimalPlaces()));
+    setMultiplier(Number(multiplier).toFixed(getDecimalPlaces(step)));
   }, [step]);
 
   return (
@@ -173,16 +171,32 @@ const ColorGrids = () => {
               />
             </label>
           </div>
-          <a
-            className="footnote--desktop"
-            href="https://www.bronsonavila.com/"
-            rel="noopener"
-            target="_blank"
-          >
-            <LogoutOutlined /> Bronson Avila
-          </a>
+          <div className="info">
+            <h4>WARNING</h4>
+            <h5>
+              Rainbow Dance Party consumes a large amount of system resources.
+              The calculations required for each grid grow exponentially on each
+              iteration.
+            </h5>
+            <h5>Please dance responsibly.</h5>
+            <br />
+            <a
+              className="footnote--desktop"
+              href="https://github.com/bronsonavila/rainbow-dance-party/"
+              rel="noopener"
+              target="_blank"
+            >
+              <GithubOutlined />
+              &nbsp;&nbsp;Source Code
+            </a>
+          </div>
         </Sider>
         <div className="color-grids">
+          <Alert
+            closable
+            message="WARNING: Rainbow Dance Party consumes a large amount of system resources. The calculations required for each grid grow exponentially on each iteration. Please dance responsibly."
+            type="warning"
+          />
           {[...Array(iterations)].map((colorGrid, index) => (
             <ColorGrid
               cellSize={cellSize}
@@ -198,11 +212,12 @@ const ColorGrids = () => {
         </div>
         <a
           className="footnote--mobile"
-          href="https://www.bronsonavila.com/"
+          href="https://github.com/bronsonavila/rainbow-dance-party/"
           rel="noopener"
           target="_blank"
         >
-          <LogoutOutlined /> Bronson Avila
+          <GithubOutlined />
+          &nbsp;&nbsp;Source Code
         </a>
       </Layout>
 
@@ -231,9 +246,7 @@ const ColorGrids = () => {
 
         @media (min-width: 768px) {
           .footnote--desktop {
-            bottom: 1rem;
             display: inline;
-            position: absolute;
           }
 
           .footnote--mobile {
@@ -241,7 +254,20 @@ const ColorGrids = () => {
           }
         }
 
-        .settings__group:not(:last-of-type) {
+        .info {
+          display: none;
+        }
+
+        @media (min-width: 768px) {
+          .info {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: flex-end;
+          }
+        }
+
+        .settings__group:first-of-type {
           margin-bottom: 2rem;
         }
       `}</style>
