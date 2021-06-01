@@ -38,12 +38,10 @@
   width: 6rem;
 }
 
-@media (max-width: 767px) {
-  .ant-input-number-handler-wrap {
-    border-left: 0;
-    opacity: 1;
-    width: 100%;
-  }
+.is-mobile-device .ant-input-number-handler-wrap {
+  border-left: 0;
+  opacity: 1;
+  width: 100%;
 }
 
 .ant-layout-sider {

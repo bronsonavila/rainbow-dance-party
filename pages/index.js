@@ -2,7 +2,9 @@ import { SettingFilled, SettingOutlined } from '@ant-design/icons';
 import { Button, InputNumber, Layout, Select, Switch } from 'antd';
 import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
+import { getDeviceType } from '../utils';
 
+const classNames = require('classnames');
 const { Sider } = Layout;
 const { Option } = Select;
 
@@ -11,6 +13,7 @@ const ColorGrids = () => {
   const [cellSize, setCellSize] = useState(16);
   const [colorRange, setColorRange] = useState(360);
   const [columns, setColumns] = useState(16);
+  const [isMobileDevice, setIsMobileDevice] = useState(null);
   const [isAutoIncrementing, setIsAutoIncrementing] = useState(false);
   const [iterations, setIterations] = useState(8);
   const [multiplier, setMultiplier] = useState(2.333);
@@ -22,6 +25,12 @@ const ColorGrids = () => {
   const getDecimalPlaces = () => step.split('.')[1]?.length || 0;
 
   const handleInputFocus = (e) => e.target.select();
+
+  // Apply different InputNumber styles when running on mobile devices.
+  useEffect(() => {
+    const deviceType = getDeviceType();
+    setIsMobileDevice(deviceType !== 'desktop');
+  }, []);
 
   // Toggle auto incrementer on/off.
   useEffect(() => {
@@ -58,7 +67,10 @@ const ColorGrids = () => {
         />
         <Sider
           breakpoint="md"
-          className={`${showMobileSettings ? 'show-mobile-settings' : ''}`}
+          className={classNames({
+            'is-mobile-device': isMobileDevice,
+            'show-mobile-settings': showMobileSettings,
+          })}
           onBreakpoint={(broken) => {
             if (!broken) setShowMobileSettings(false);
           }}
