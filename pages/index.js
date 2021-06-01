@@ -1,4 +1,8 @@
-import { SettingFilled, SettingOutlined } from '@ant-design/icons';
+import {
+  LogoutOutlined,
+  SettingFilled,
+  SettingOutlined,
+} from '@ant-design/icons';
 import { Button, InputNumber, Layout, Select, Switch } from 'antd';
 import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
@@ -169,6 +173,14 @@ const ColorGrids = () => {
               />
             </label>
           </div>
+          <a
+            className="footnote--desktop"
+            href="https://www.bronsonavila.com/"
+            rel="noopener"
+            target="_blank"
+          >
+            <LogoutOutlined /> Bronson Avila
+          </a>
         </Sider>
         <div className="color-grids">
           {[...Array(iterations)].map((colorGrid, index) => (
@@ -184,6 +196,14 @@ const ColorGrids = () => {
             />
           ))}
         </div>
+        <a
+          className="footnote--mobile"
+          href="https://www.bronsonavila.com/"
+          rel="noopener"
+          target="_blank"
+        >
+          <LogoutOutlined /> Bronson Avila
+        </a>
       </Layout>
 
       <style jsx>{`
@@ -191,13 +211,33 @@ const ColorGrids = () => {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
-          margin: 1rem 0 3.5rem 1rem;
+          margin: 1rem 0 1.125rem 1rem;
         }
 
         @media (min-width: 768px) {
           .color-grids {
             justify-content: flex-start;
             margin: 1rem 0 0 216px;
+          }
+        }
+
+        .footnote--desktop {
+          display: none;
+        }
+
+        .footnote--mobile {
+          margin: 0 0 1rem 1rem;
+        }
+
+        @media (min-width: 768px) {
+          .footnote--desktop {
+            bottom: 1rem;
+            display: inline;
+            position: absolute;
+          }
+
+          .footnote--mobile {
+            display: none;
           }
         }
 

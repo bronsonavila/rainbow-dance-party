@@ -12,8 +12,15 @@ body {
 }
 
 a {
-  color: inherit;
+  color: #b8b9bb;
+  display: inline;
   text-decoration: none;
+  width: fit-content;
+}
+
+a:focus,
+a:hover {
+  color: #000000d9;
 }
 
 label {
