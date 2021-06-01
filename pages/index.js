@@ -17,8 +17,8 @@ const ColorGrids = () => {
   const [cellSize, setCellSize] = useState(16);
   const [colorRange, setColorRange] = useState(360);
   const [columns, setColumns] = useState(16);
-  const [isMobileDevice, setIsMobileDevice] = useState(null);
   const [isAutoIncrementing, setIsAutoIncrementing] = useState(false);
+  const [isMobileDevice, setIsMobileDevice] = useState(null);
   const [iterations, setIterations] = useState(8);
   const [multiplier, setMultiplier] = useState(2.333);
   const [rows, setRows] = useState(16);
