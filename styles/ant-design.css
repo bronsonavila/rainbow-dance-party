@@ -34,8 +34,8 @@
 
 .ant-input-number,
 .ant-select {
-  height: 1.5rem;
-  width: 6rem;
+  /* height: 1.5rem;
+  width: 6rem; */
 }
 
 .ant-layout-sider {
