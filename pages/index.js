@@ -9,8 +9,6 @@ import { useEffect, useRef, useState } from 'react';
 import { getDecimalPlaces, getDeviceType } from '../utils';
 
 const classNames = require('classnames');
-const { Sider } = Layout;
-const { Option } = Select;
 
 const ColorGrids = () => {
   const autoIncrementTimerRef = useRef(null);
@@ -67,7 +65,6 @@ const ColorGrids = () => {
         <meta property="og:description" content="Rainbow Dance Party" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <Layout>
         <Button
           icon={showMobileSettings ? <SettingOutlined /> : <SettingFilled />}
@@ -75,7 +72,7 @@ const ColorGrids = () => {
           shape="circle"
           size="large"
         />
-        <Sider
+        <Layout.Sider
           breakpoint="md"
           className={classNames({
             'is-mobile-device': isMobileDevice,
@@ -162,12 +159,12 @@ const ColorGrids = () => {
                 onChange={(value) => setStep(value)}
                 size="small"
               >
-                <Option value="1">1</Option>
-                <Option value="0.1">0.1</Option>
-                <Option value="0.01">0.01</Option>
-                <Option value="0.001">0.001</Option>
-                <Option value="0.0001">0.0001</Option>
-                <Option value="0.00001">0.00001</Option>
+                <Select.Option value="1">1</Select.Option>
+                <Select.Option value="0.1">0.1</Select.Option>
+                <Select.Option value="0.01">0.01</Select.Option>
+                <Select.Option value="0.001">0.001</Select.Option>
+                <Select.Option value="0.0001">0.0001</Select.Option>
+                <Select.Option value="0.00001">0.00001</Select.Option>
               </Select>
             </label>
             <label>
@@ -198,7 +195,7 @@ const ColorGrids = () => {
               &nbsp;&nbsp;Source Code
             </a>
           </div>
-        </Sider>
+        </Layout.Sider>
         <div className="color-grids">
           <Alert
             closable
