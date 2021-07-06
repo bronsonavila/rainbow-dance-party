@@ -5,7 +5,7 @@ import '../styles/ant-design.css';
 import '../styles/globals.css';
 
 /**
- * App includes Posthog analytics script, although the method of loading the script may not be ideal.
+ * App includes PostHog analytics script, although the method of loading the script may not be ideal.
  * See: https://stackoverflow.com/a/67182132/9027907
  */
 function MyApp({ Component, pageProps }) {
