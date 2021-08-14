@@ -6,11 +6,13 @@ import {
 import { Alert, Button, InputNumber, Layout, Select, Switch } from 'antd';
 import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
+
+import ColorGrid from '../components/ColorGrid';
 import { getDecimalPlaces, getDeviceType } from '../utils';
 
 const classNames = require('classnames');
 
-const ColorGrids = () => {
+const HomePage = () => {
   const autoIncrementTimerRef = useRef(null);
   const [cellSize, setCellSize] = useState(16);
   const [colorRange, setColorRange] = useState(360);
@@ -66,6 +68,7 @@ const ColorGrids = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
+        {/* Settings Button (Mobile) */}
         <Button
           icon={showMobileSettings ? <SettingOutlined /> : <SettingFilled />}
           onClick={() => setShowMobileSettings(!showMobileSettings)}
@@ -82,6 +85,7 @@ const ColorGrids = () => {
             if (!broken) setShowMobileSettings(false);
           }}
         >
+          {/* Settings: Grid Options */}
           <div className="settings__group">
             <h2>Grid Options</h2>
             <label>
@@ -133,6 +137,7 @@ const ColorGrids = () => {
               />
             </label>
           </div>
+          {/* Settings: Color Options */}
           <div className="settings__group">
             <h2>Color Options</h2>
             <label>
@@ -176,6 +181,7 @@ const ColorGrids = () => {
               />
             </label>
           </div>
+          {/* Info (Desktop) */}
           <div className="info">
             <h4>WARNING</h4>
             <h5>
@@ -196,7 +202,9 @@ const ColorGrids = () => {
             </a>
           </div>
         </Layout.Sider>
+        {/* Color Grids */}
         <div className="color-grids">
+          {/* Info (Mobile) */}
           <Alert
             closable
             message="WARNING: Rainbow Dance Party consumes a large amount of system resources. The calculations required for each grid grow exponentially on each iteration. Please dance responsibly."
@@ -208,13 +216,14 @@ const ColorGrids = () => {
               colorRange={colorRange}
               columns={columns}
               index={index}
-              key={index}
+              key={`color-grid__${index}`}
               multiplier={multiplier}
               rows={rows}
               showBorders={showBorders}
             />
           ))}
         </div>
+        {/* Footer (Mobile) */}
         <a
           className="footnote--mobile"
           href="https://github.com/bronsonavila/rainbow-dance-party/"
@@ -280,68 +289,4 @@ const ColorGrids = () => {
   );
 };
 
-const ColorGrid = ({
-  cellSize,
-  colorRange,
-  columns,
-  index,
-  multiplier,
-  rows,
-  showBorders,
-}) => {
-  const setHue = (cellNumber) =>
-    Math.round(
-      ((cellNumber * colorRange) / (columns * rows)) *
-        Math.pow(multiplier, index)
-    ) % colorRange || 0; // Default to `0` if value of `Infinity` is reached.
-
-  return (
-    <>
-      <div className="color-grid">
-        {[...Array(columns)].map((column, columnIndex) => (
-          <div className="color-grid__column" key={columnIndex}>
-            {[...Array(rows)].map((row, rowIndex) => {
-              const cellNumber = columnIndex * rows + (rowIndex + 1);
-              return (
-                <div
-                  className="color-grid__cell"
-                  key={cellNumber}
-                  style={{
-                    backgroundColor: `hsl(${setHue(cellNumber)}, 100%, 50%)`,
-                  }}
-                ></div>
-              );
-            })}
-          </div>
-        ))}
-      </div>
-
-      <style jsx>{`
-        .color-grid {
-          border-left: ${showBorders ? '1px solid #3c3c3c' : 0};
-          border-top: ${showBorders ? '1px solid #3c3c3c' : 0};
-          display: flex;
-          flex-direction: row;
-          margin-bottom: 1rem;
-          margin-right: 1rem;
-          width: fit-content;
-        }
-
-        .color-grid__column {
-          display: flex;
-          flex-direction: column;
-          width: fit-content;
-        }
-
-        .color-grid__cell {
-          border-bottom: ${showBorders ? '1px solid #3c3c3c' : 0};
-          border-right: ${showBorders ? '1px solid #3c3c3c' : 0};
-          height: ${cellSize}px;
-          width: ${cellSize}px;
-        }
-      `}</style>
-    </>
-  );
-};
-
-export default ColorGrids;
+export default HomePage;
