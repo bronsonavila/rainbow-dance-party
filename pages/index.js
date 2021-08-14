@@ -4,10 +4,10 @@ import {
   SettingOutlined,
 } from '@ant-design/icons';
 import { Alert, Button, InputNumber, Layout, Select, Switch } from 'antd';
-import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 
 import ColorGrid from '../components/ColorGrid';
+import Metadata from '../components/Metadata';
 import { getDecimalPlaces, getDeviceType } from '../utils';
 
 const classNames = require('classnames');
@@ -53,20 +53,7 @@ const HomePage = () => {
 
   return (
     <>
-      <Head>
-        <title>Rainbow Dance Party</title>
-        <meta name="description" content="Rainbow Dance Party" />
-        <meta name="author" content="Bronson Avila" />
-        <meta property="og:url" content="https://www.rainbowdance.party/" />
-        <meta
-          property="og:image"
-          content="https://www.rainbowdance.party/screenshot.png"
-        />
-        <meta property="og:site_name" content="Rainbow Dance Party" />
-        <meta property="og:title" content="Rainbow Dance Party" />
-        <meta property="og:description" content="Rainbow Dance Party" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Metadata />
       <Layout>
         {/* Settings Button (Mobile) */}
         <Button
@@ -202,14 +189,14 @@ const HomePage = () => {
             </a>
           </div>
         </Layout.Sider>
+        {/* Info (Mobile) */}
+        <Alert
+          closable
+          message="WARNING: Rainbow Dance Party consumes a large amount of system resources. The calculations required for each grid grow exponentially on each iteration. Please dance responsibly."
+          type="warning"
+        />
         {/* Color Grids */}
         <div className="color-grids">
-          {/* Info (Mobile) */}
-          <Alert
-            closable
-            message="WARNING: Rainbow Dance Party consumes a large amount of system resources. The calculations required for each grid grow exponentially on each iteration. Please dance responsibly."
-            type="warning"
-          />
           {[...Array(iterations)].map((colorGrid, index) => (
             <ColorGrid
               cellSize={cellSize}
