@@ -16,6 +16,7 @@
 
 .ant-alert-close-icon {
   height: 100%;
+  margin-left: 1rem;
 }
 
 .ant-alert-message {
