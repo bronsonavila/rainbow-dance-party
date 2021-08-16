@@ -1,7 +1,8 @@
-export const getDecimalPlaces = (step) => step.split('.')[1]?.length || 0;
+export const getDecimalPlaces = (step: string): number =>
+  step.split('.')[1]?.length || 0;
 
 // See: https://attacomsian.com/blog/javascript-detect-mobile-device
-export const getDeviceType = () => {
+export const getDeviceType = (): string => {
   const ua = navigator.userAgent;
 
   if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
