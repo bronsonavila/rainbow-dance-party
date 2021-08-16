@@ -1,5 +1,15 @@
 import { memo } from 'react';
 
+type ColorGridProps = {
+  cellSize: number;
+  colorRange: number;
+  columns: number;
+  index: number;
+  multiplier: number;
+  rows: number;
+  showBorders: boolean;
+};
+
 const ColorGrid = ({
   cellSize,
   colorRange,
@@ -8,8 +18,8 @@ const ColorGrid = ({
   multiplier,
   rows,
   showBorders,
-}) => {
-  const setHue = (cellNumber) =>
+}: ColorGridProps): JSX.Element => {
+  const setHue = (cellNumber: number) =>
     Math.round(
       ((cellNumber * colorRange) / (columns * rows)) *
         Math.pow(multiplier, index)

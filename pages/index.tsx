@@ -4,29 +4,32 @@ import {
   SettingOutlined,
 } from '@ant-design/icons';
 import { Alert, Button, InputNumber, Layout, Select, Switch } from 'antd';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-import ColorGrid from '../components/ColorGrid';
-import Metadata from '../components/Metadata';
-import { getDecimalPlaces, getDeviceType } from '../utils';
+import ColorGrid from 'components/ColorGrid';
+import Metadata from 'components/Metadata';
+import { getDecimalPlaces, getDeviceType } from 'utils';
 
 const classNames = require('classnames');
 
-const HomePage = () => {
-  const autoIncrementTimerRef = useRef(null);
-  const [cellSize, setCellSize] = useState(16);
-  const [colorRange, setColorRange] = useState(360);
-  const [columns, setColumns] = useState(16);
-  const [isAutoIncrementing, setIsAutoIncrementing] = useState(false);
-  const [isMobileDevice, setIsMobileDevice] = useState(null);
-  const [iterations, setIterations] = useState(8);
-  const [multiplier, setMultiplier] = useState(2.333);
-  const [rows, setRows] = useState(16);
-  const [showBorders, setShowBorders] = useState(true);
-  const [showMobileSettings, setShowMobileSettings] = useState(false);
-  const [step, setStep] = useState('0.001');
+const HomePage = (): JSX.Element => {
+  const autoIncrementTimerRef = useRef<number | undefined>(undefined);
+  const [cellSize, setCellSize] = useState<number>(16);
+  const [colorRange, setColorRange] = useState<number>(360);
+  const [columns, setColumns] = useState<number>(16);
+  const [isAutoIncrementing, setIsAutoIncrementing] = useState<boolean>(false);
+  const [isMobileDevice, setIsMobileDevice] = useState<boolean | null>(null);
+  const [iterations, setIterations] = useState<number>(8);
+  const [multiplier, setMultiplier] = useState<number | string>(2.333);
+  const [rows, setRows] = useState<number>(16);
+  const [showBorders, setShowBorders] = useState<boolean>(true);
+  const [showMobileSettings, setShowMobileSettings] = useState<boolean>(false);
+  const [step, setStep] = useState<string>('0.001');
 
-  const handleInputFocus = (e) => e.target.select();
+  const handleInputFocus = (e: React.SyntheticEvent) => {
+    const inputElement = e.target as HTMLInputElement;
+    inputElement.select();
+  };
 
   // Apply different InputNumber styles when running on mobile devices.
   useEffect(() => {
@@ -38,18 +41,20 @@ const HomePage = () => {
   useEffect(() => {
     clearInterval(autoIncrementTimerRef.current);
     if (isAutoIncrementing) {
-      autoIncrementTimerRef.current = setInterval(() => {
+      autoIncrementTimerRef.current = window.setInterval(() => {
         setMultiplier((multiplier) =>
           (Number(multiplier) + Number(step)).toFixed(getDecimalPlaces(step))
         );
       }, 100);
     }
-  }, [isAutoIncrementing, step]);
+  }, [isAutoIncrementing, multiplier, step]);
 
   // Adjust multiplier's decimal places based on chosen step value.
+  // NOTE: multiplier must be allowed to have a type of either `number | string`
+  // to allow for the automatic appending of 0's when increasing the step.
   useEffect(() => {
     setMultiplier(Number(multiplier).toFixed(getDecimalPlaces(step)));
-  }, [step]);
+  }, [multiplier, step]);
 
   return (
     <>
@@ -181,7 +186,7 @@ const HomePage = () => {
             <a
               className="footnote--desktop"
               href="https://github.com/bronsonavila/rainbow-dance-party/"
-              rel="noopener"
+              rel="noreferrer"
               target="_blank"
             >
               <GithubOutlined />
@@ -204,7 +209,7 @@ const HomePage = () => {
               columns={columns}
               index={index}
               key={`color-grid__${index}`}
-              multiplier={multiplier}
+              multiplier={Number(multiplier)}
               rows={rows}
               showBorders={showBorders}
             />
@@ -214,7 +219,7 @@ const HomePage = () => {
         <a
           className="footnote--mobile"
           href="https://github.com/bronsonavila/rainbow-dance-party/"
-          rel="noopener"
+          rel="noreferrer"
           target="_blank"
         >
           <GithubOutlined />

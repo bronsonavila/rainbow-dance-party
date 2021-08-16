@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-const Metadata = () => (
+const Metadata = (): JSX.Element => (
   <Head>
     <title>Rainbow Dance Party</title>
     <meta name="description" content="Rainbow Dance Party" />
