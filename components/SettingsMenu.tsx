@@ -1,15 +1,15 @@
-import { GithubOutlined } from '@ant-design/icons';
-import { InputNumber, Layout, Select, Switch } from 'antd';
-import { SyntheticEvent, useEffect, useRef } from 'react';
+import { GithubOutlined } from '@ant-design/icons'
+import { InputNumber, Layout, Select, Switch } from 'antd'
+import { SyntheticEvent, useEffect, useRef } from 'react'
 
-import { useStore } from 'store';
-import { getDecimalPlaces, getDeviceType } from 'utils';
+import { useStore } from 'store'
+import { getDecimalPlaces, getDeviceType } from 'utils'
 
-const classNames = require('classnames');
+const classNames = require('classnames')
 
 const SettingsMenu = () => {
-  const autoIncrementTimerRef = useRef<number | undefined>(undefined);
-  const { state, setState } = useStore();
+  const autoIncrementTimerRef = useRef<number | undefined>(undefined)
+  const { state, setState } = useStore()
   const {
     cellSize,
     columns,
@@ -21,32 +21,30 @@ const SettingsMenu = () => {
     showBorders,
     showMobileSettings,
     step,
-  } = state;
+  } = state
 
   const handleInputFocus = (e: SyntheticEvent) => {
-    const inputElement = e.target as HTMLInputElement;
-    inputElement.select();
-  };
+    const inputElement = e.target as HTMLInputElement
+    inputElement.select()
+  }
 
   // Apply different InputNumber styles when running on mobile devices.
   useEffect(() => {
-    const deviceType = getDeviceType();
-    setState({ isMobileDevice: deviceType !== 'desktop' });
-  }, [setState]);
+    const deviceType = getDeviceType()
+    setState({ isMobileDevice: deviceType !== 'desktop' })
+  }, [setState])
 
   // Toggle auto incrementer on/off.
   useEffect(() => {
-    clearInterval(autoIncrementTimerRef.current);
+    clearInterval(autoIncrementTimerRef.current)
     if (isAutoIncrementing) {
       autoIncrementTimerRef.current = window.setInterval(() => {
         setState({
-          multiplier: (Number(multiplier) + Number(step)).toFixed(
-            getDecimalPlaces(step)
-          ),
-        });
-      }, 100);
+          multiplier: (Number(multiplier) + Number(step)).toFixed(getDecimalPlaces(step)),
+        })
+      }, 100)
     }
-  }, [isAutoIncrementing, multiplier, setState, step]);
+  }, [isAutoIncrementing, multiplier, setState, step])
 
   // Adjust multiplier's decimal places based on chosen step value.
   // NOTE: multiplier must be allowed to have a type of either `number | string`
@@ -54,8 +52,8 @@ const SettingsMenu = () => {
   useEffect(() => {
     setState({
       multiplier: Number(multiplier).toFixed(getDecimalPlaces(step)),
-    });
-  }, [multiplier, setState, step]);
+    })
+  }, [multiplier, setState, step])
 
   return (
     <>
@@ -65,8 +63,8 @@ const SettingsMenu = () => {
           'is-mobile-device': isMobileDevice,
           'show-mobile-settings': showMobileSettings,
         })}
-        onBreakpoint={(broken) => {
-          if (!broken) setState({ showMobileSettings: false });
+        onBreakpoint={broken => {
+          if (!broken) setState({ showMobileSettings: false })
         }}
       >
         {/* Settings: Grid Options */}
@@ -76,7 +74,7 @@ const SettingsMenu = () => {
             <span>Cell Size</span>
             <InputNumber
               min={1}
-              onChange={(value) => setState({ cellSize: value })}
+              onChange={value => setState({ cellSize: value })}
               onFocus={handleInputFocus}
               size="small"
               value={cellSize}
@@ -86,7 +84,7 @@ const SettingsMenu = () => {
             <span>Columns</span>
             <InputNumber
               min={1}
-              onChange={(value) => setState({ columns: value })}
+              onChange={value => setState({ columns: value })}
               onFocus={handleInputFocus}
               size="small"
               value={columns}
@@ -96,7 +94,7 @@ const SettingsMenu = () => {
             <span>Rows</span>
             <InputNumber
               min={1}
-              onChange={(value) => setState({ rows: value })}
+              onChange={value => setState({ rows: value })}
               onFocus={handleInputFocus}
               size="small"
               value={rows}
@@ -106,7 +104,7 @@ const SettingsMenu = () => {
             <span>Iterations</span>
             <InputNumber
               min={1}
-              onChange={(value) => setState({ iterations: value })}
+              onChange={value => setState({ iterations: value })}
               onFocus={handleInputFocus}
               size="small"
               value={iterations}
@@ -116,7 +114,7 @@ const SettingsMenu = () => {
             <span>Show Borders</span>
             <Switch
               checked={showBorders}
-              onChange={(value) => setState({ showBorders: value })}
+              onChange={value => setState({ showBorders: value })}
               size="small"
             />
           </label>
@@ -128,7 +126,7 @@ const SettingsMenu = () => {
             <span>Multiplier</span>
             <InputNumber
               min={0}
-              onChange={(value) => setState({ multiplier: value })}
+              onChange={value => setState({ multiplier: value })}
               onFocus={handleInputFocus}
               size="small"
               step={step}
@@ -145,7 +143,7 @@ const SettingsMenu = () => {
                 offset: showMobileSettings ? [0, -4] : [0, 4],
               }}
               dropdownMatchSelectWidth={false}
-              onChange={(value) => setState({ step: value })}
+              onChange={value => setState({ step: value })}
               size="small"
             >
               <Select.Option value="1">1</Select.Option>
@@ -160,7 +158,7 @@ const SettingsMenu = () => {
             <span>Auto Increment</span>
             <Switch
               checked={isAutoIncrementing}
-              onChange={(value) => setState({ isAutoIncrementing: value })}
+              onChange={value => setState({ isAutoIncrementing: value })}
               size="small"
             />
           </label>
@@ -170,8 +168,7 @@ const SettingsMenu = () => {
           <h4>WARNING</h4>
           <h5>
             Rainbow Dance Party consumes a large amount of system resources. The
-            calculations required for each grid grow exponentially on each
-            iteration.
+            calculations required for each grid grow exponentially on each iteration.
           </h5>
           <h5>Please dance responsibly.</h5>
           <br />
@@ -216,7 +213,7 @@ const SettingsMenu = () => {
         }
       `}</style>
     </>
-  );
-};
+  )
+}
 
-export default SettingsMenu;
+export default SettingsMenu

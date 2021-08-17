@@ -1,17 +1,15 @@
-import { memo } from 'react';
+import { memo } from 'react'
 
-import { useStore } from 'store';
+import { useStore } from 'store'
 
 const ColorGrid = ({ index }: { index: number }) => {
-  const { state } = useStore();
-  const { cellSize, colorRange, columns, multiplier, rows, showBorders } =
-    state;
+  const { state } = useStore()
+  const { cellSize, colorRange, columns, multiplier, rows, showBorders } = state
 
   const setHue = (cellNumber: number) =>
     Math.round(
-      ((cellNumber * colorRange) / (columns * rows)) *
-        Math.pow(multiplier, index)
-    ) % colorRange || 0; // Default to `0` if value of `Infinity` is reached.
+      ((cellNumber * colorRange) / (columns * rows)) * Math.pow(multiplier, index)
+    ) % colorRange || 0 // Default to `0` if value of `Infinity` is reached.
 
   return (
     <>
@@ -19,7 +17,7 @@ const ColorGrid = ({ index }: { index: number }) => {
         {[...Array(columns)].map((column, columnIndex) => (
           <div className="color-grid__column" key={columnIndex}>
             {[...Array(rows)].map((row, rowIndex) => {
-              const cellNumber = columnIndex * rows + (rowIndex + 1);
+              const cellNumber = columnIndex * rows + (rowIndex + 1)
               return (
                 <div
                   className="color-grid__cell"
@@ -27,8 +25,8 @@ const ColorGrid = ({ index }: { index: number }) => {
                   style={{
                     backgroundColor: `hsl(${setHue(cellNumber)}, 100%, 50%)`,
                   }}
-                ></div>
-              );
+                />
+              )
             })}
           </div>
         ))}
@@ -59,7 +57,7 @@ const ColorGrid = ({ index }: { index: number }) => {
         }
       `}</style>
     </>
-  );
-};
+  )
+}
 
-export default memo(ColorGrid);
+export default memo(ColorGrid)

@@ -1,13 +1,13 @@
-import type { AppProps } from 'next/app';
-import Script from 'next/script';
+import type { AppProps } from 'next/app'
+import Script from 'next/script'
 
 // Global State
-import { StoreProvider } from 'store';
+import { StoreProvider } from 'store'
 
 // Styles
-import 'antd/dist/antd.css';
-import 'styles/ant-design.css';
-import 'styles/globals.css';
+import 'antd/dist/antd.css'
+import 'styles/ant-design.css'
+import 'styles/globals.css'
 
 /**
  * App includes PostHog analytics script, although the method of loading the script may not be ideal.
@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       />
       <Component {...pageProps} />
     </StoreProvider>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp

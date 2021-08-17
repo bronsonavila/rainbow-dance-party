@@ -1,18 +1,14 @@
-import {
-  GithubOutlined,
-  SettingFilled,
-  SettingOutlined,
-} from '@ant-design/icons';
-import { Alert, Button, Layout } from 'antd';
+import { GithubOutlined, SettingFilled, SettingOutlined } from '@ant-design/icons'
+import { Alert, Button, Layout } from 'antd'
 
-import ColorGrid from 'components/ColorGrid';
-import Metadata from 'components/Metadata';
-import SettingsMenu from 'components/SettingsMenu';
-import { useStore } from 'store';
+import ColorGrid from 'components/ColorGrid'
+import Metadata from 'components/Metadata'
+import SettingsMenu from 'components/SettingsMenu'
+import { useStore } from 'store'
 
 const HomePage = () => {
-  const { state, setState } = useStore();
-  const { iterations, showMobileSettings } = state;
+  const { state, setState } = useStore()
+  const { iterations, showMobileSettings } = state
 
   return (
     <>
@@ -77,7 +73,7 @@ const HomePage = () => {
         }
       `}</style>
     </>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage
