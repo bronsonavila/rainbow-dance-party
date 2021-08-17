@@ -43,17 +43,17 @@ const ColorGrid = ({ index }: { index: number }) => {
           width: fit-content;
         }
 
-        .color-grid__column {
-          display: flex;
-          flex-direction: column;
-          width: fit-content;
-        }
-
         .color-grid__cell {
           border-bottom: ${showBorders ? '1px solid #3c3c3c' : 0};
           border-right: ${showBorders ? '1px solid #3c3c3c' : 0};
           height: ${cellSize}px;
           width: ${cellSize}px;
+        }
+
+        .color-grid__column {
+          display: flex;
+          flex-direction: column;
+          width: fit-content;
         }
       `}</style>
     </>
