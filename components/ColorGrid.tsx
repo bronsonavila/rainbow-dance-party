@@ -1,24 +1,12 @@
 import { memo } from 'react';
 
-type ColorGridProps = {
-  cellSize: number;
-  colorRange: number;
-  columns: number;
-  index: number;
-  multiplier: number;
-  rows: number;
-  showBorders: boolean;
-};
+import { useStore } from 'store';
 
-const ColorGrid = ({
-  cellSize,
-  colorRange,
-  columns,
-  index,
-  multiplier,
-  rows,
-  showBorders,
-}: ColorGridProps): JSX.Element => {
+const ColorGrid = ({ index }: { index: number }) => {
+  const { state } = useStore();
+  const { cellSize, colorRange, columns, multiplier, rows, showBorders } =
+    state;
+
   const setHue = (cellNumber: number) =>
     Math.round(
       ((cellNumber * colorRange) / (columns * rows)) *
