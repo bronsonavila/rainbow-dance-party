@@ -14,9 +14,9 @@ const ColorGrid = ({ index }: { index: number }) => {
   return (
     <>
       <div className="color-grid">
-        {[...Array(columns)].map((column, columnIndex) => (
+        {[...Array(columns)].map((_, columnIndex) => (
           <div className="color-grid__column" key={columnIndex}>
-            {[...Array(rows)].map((row, rowIndex) => {
+            {[...Array(rows)].map((_, rowIndex) => {
               const cellNumber = columnIndex * rows + (rowIndex + 1)
               return (
                 <div

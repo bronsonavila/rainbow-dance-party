@@ -6,7 +6,6 @@ import { StoreProvider } from 'store'
 
 // Styles
 import 'antd/dist/antd.css'
-import 'styles/ant-design.css'
 import 'styles/globals.css'
 
 /**
