@@ -133,12 +133,11 @@ const Settings = () => {
             onChange={value => setState({ step: value })}
             size="small"
           >
-            <Select.Option value="1">1</Select.Option>
-            <Select.Option value="0.1">0.1</Select.Option>
-            <Select.Option value="0.01">0.01</Select.Option>
-            <Select.Option value="0.001">0.001</Select.Option>
-            <Select.Option value="0.0001">0.0001</Select.Option>
-            <Select.Option value="0.00001">0.00001</Select.Option>
+            {['1', '0.1', '0.01', '0.001', '0.0001', '0.00001'].map((option, index) => (
+              <Select.Option key={option} value={option}>
+                {option}
+              </Select.Option>
+            ))}
           </Select>
         </label>
         <label>
