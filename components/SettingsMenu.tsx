@@ -185,6 +185,16 @@ const SettingsMenu = () => {
       </Layout.Sider>
 
       <style jsx>{`
+        .footnote--desktop {
+          display: none;
+        }
+
+        @media (min-width: 768px) {
+          .footnote--desktop {
+            display: inline;
+          }
+        }
+
         .info {
           display: none;
         }
@@ -195,16 +205,6 @@ const SettingsMenu = () => {
             flex-direction: column;
             flex-grow: 1;
             justify-content: flex-end;
-          }
-        }
-
-        .footnote--desktop {
-          display: none;
-        }
-
-        @media (min-width: 768px) {
-          .footnote--desktop {
-            display: inline;
           }
         }
 
