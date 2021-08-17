@@ -38,7 +38,7 @@ const reducer = (state: AppState, dispatch: { [key: string]: unknown }) => {
 
 const StoreContext = createContext(undefined as any)
 
-export const StoreProvider = (props: React.PropsWithChildren<{}>) => {
+export const StoreProvider = (props: PropsWithChildren<{}>) => {
   const [state, setState] = useReducer(reducer, initialState)
   return <StoreContext.Provider value={{ state, setState }} {...props} />
 }
