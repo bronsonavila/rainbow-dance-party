@@ -1,23 +1,37 @@
-import { memo } from 'react'
+import { memo } from 'react';
 
-import { useStore } from 'store'
+type ColorGridProps = {
+  cellSize: number;
+  colorRange: number;
+  columns: number;
+  index: number;
+  multiplier: number;
+  rows: number;
+  showBorders: boolean;
+};
 
-const ColorGrid = ({ index }: { index: number }) => {
-  const { state } = useStore()
-  const { cellSize, colorRange, columns, multiplier, rows, showBorders } = state
-
+const ColorGrid = ({
+  cellSize,
+  colorRange,
+  columns,
+  index,
+  multiplier,
+  rows,
+  showBorders,
+}: ColorGridProps): JSX.Element => {
   const setHue = (cellNumber: number) =>
     Math.round(
-      ((cellNumber * colorRange) / (columns * rows)) * Math.pow(multiplier, index)
-    ) % colorRange || 0 // Default to `0` if value of `Infinity` is reached.
+      ((cellNumber * colorRange) / (columns * rows)) *
+        Math.pow(multiplier, index)
+    ) % colorRange || 0; // Default to `0` if value of `Infinity` is reached.
 
   return (
     <>
       <div className="color-grid">
-        {[...Array(columns)].map((_, columnIndex) => (
+        {[...Array(columns)].map((column, columnIndex) => (
           <div className="color-grid__column" key={columnIndex}>
-            {[...Array(rows)].map((_, rowIndex) => {
-              const cellNumber = columnIndex * rows + (rowIndex + 1)
+            {[...Array(rows)].map((row, rowIndex) => {
+              const cellNumber = columnIndex * rows + (rowIndex + 1);
               return (
                 <div
                   className="color-grid__cell"
@@ -25,8 +39,8 @@ const ColorGrid = ({ index }: { index: number }) => {
                   style={{
                     backgroundColor: `hsl(${setHue(cellNumber)}, 100%, 50%)`,
                   }}
-                />
-              )
+                ></div>
+              );
             })}
           </div>
         ))}
@@ -43,21 +57,21 @@ const ColorGrid = ({ index }: { index: number }) => {
           width: fit-content;
         }
 
+        .color-grid__column {
+          display: flex;
+          flex-direction: column;
+          width: fit-content;
+        }
+
         .color-grid__cell {
           border-bottom: ${showBorders ? '1px solid #3c3c3c' : 0};
           border-right: ${showBorders ? '1px solid #3c3c3c' : 0};
           height: ${cellSize}px;
           width: ${cellSize}px;
         }
-
-        .color-grid__column {
-          display: flex;
-          flex-direction: column;
-          width: fit-content;
-        }
       `}</style>
     </>
-  )
-}
+  );
+};
 
-export default memo(ColorGrid)
+export default memo(ColorGrid);
