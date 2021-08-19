@@ -1,60 +1,56 @@
-import {
-  GithubOutlined,
-  SettingFilled,
-  SettingOutlined,
-} from '@ant-design/icons';
-import { Alert, Button, InputNumber, Layout, Select, Switch } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
+import { GithubOutlined, SettingFilled, SettingOutlined } from '@ant-design/icons'
+import { Alert, Button, InputNumber, Layout, Select, Switch } from 'antd'
+import React, { useEffect, useRef, useState } from 'react'
 
-import ColorGrid from 'components/ColorGrid';
-import Metadata from 'components/Metadata';
-import { getDecimalPlaces, getDeviceType } from 'utils';
+import ColorGrid from 'components/ColorGrid'
+import Metadata from 'components/Metadata'
+import { getDecimalPlaces, getDeviceType } from 'utils'
 
-const classNames = require('classnames');
+const classNames = require('classnames')
 
 const HomePage = (): JSX.Element => {
-  const autoIncrementTimerRef = useRef<number | undefined>(undefined);
-  const [cellSize, setCellSize] = useState<number>(16);
-  const [colorRange, setColorRange] = useState<number>(360);
-  const [columns, setColumns] = useState<number>(16);
-  const [isAutoIncrementing, setIsAutoIncrementing] = useState<boolean>(false);
-  const [isMobileDevice, setIsMobileDevice] = useState<boolean | null>(null);
-  const [iterations, setIterations] = useState<number>(8);
-  const [multiplier, setMultiplier] = useState<number | string>(2.333);
-  const [rows, setRows] = useState<number>(16);
-  const [showBorders, setShowBorders] = useState<boolean>(true);
-  const [showMobileSettings, setShowMobileSettings] = useState<boolean>(false);
-  const [step, setStep] = useState<string>('0.001');
+  const autoIncrementTimerRef = useRef<number | undefined>(undefined)
+  const [cellSize, setCellSize] = useState<number>(16)
+  const [colorRange, setColorRange] = useState<number>(360)
+  const [columns, setColumns] = useState<number>(16)
+  const [isAutoIncrementing, setIsAutoIncrementing] = useState<boolean>(false)
+  const [isMobileDevice, setIsMobileDevice] = useState<boolean | null>(null)
+  const [iterations, setIterations] = useState<number>(8)
+  const [multiplier, setMultiplier] = useState<number | string>(2.333)
+  const [rows, setRows] = useState<number>(16)
+  const [showBorders, setShowBorders] = useState<boolean>(true)
+  const [showMobileSettings, setShowMobileSettings] = useState<boolean>(false)
+  const [step, setStep] = useState<string>('0.001')
 
   const handleInputFocus = (e: React.SyntheticEvent) => {
-    const inputElement = e.target as HTMLInputElement;
-    inputElement.select();
-  };
+    const inputElement = e.target as HTMLInputElement
+    inputElement.select()
+  }
 
   // Apply different InputNumber styles when running on mobile devices.
   useEffect(() => {
-    const deviceType = getDeviceType();
-    setIsMobileDevice(deviceType !== 'desktop');
-  }, []);
+    const deviceType = getDeviceType()
+    setIsMobileDevice(deviceType !== 'desktop')
+  }, [])
 
   // Toggle auto incrementer on/off.
   useEffect(() => {
-    clearInterval(autoIncrementTimerRef.current);
+    clearInterval(autoIncrementTimerRef.current)
     if (isAutoIncrementing) {
       autoIncrementTimerRef.current = window.setInterval(() => {
-        setMultiplier((multiplier) =>
+        setMultiplier(multiplier =>
           (Number(multiplier) + Number(step)).toFixed(getDecimalPlaces(step))
-        );
-      }, 100);
+        )
+      }, 100)
     }
-  }, [isAutoIncrementing, multiplier, step]);
+  }, [isAutoIncrementing, multiplier, step])
 
   // Adjust multiplier's decimal places based on chosen step value.
   // NOTE: multiplier must be allowed to have a type of either `number | string`
   // to allow for the automatic appending of 0's when increasing the step.
   useEffect(() => {
-    setMultiplier(Number(multiplier).toFixed(getDecimalPlaces(step)));
-  }, [multiplier, step]);
+    setMultiplier(Number(multiplier).toFixed(getDecimalPlaces(step)))
+  }, [multiplier, step])
 
   return (
     <>
@@ -73,8 +69,8 @@ const HomePage = (): JSX.Element => {
             'is-mobile-device': isMobileDevice,
             'show-mobile-settings': showMobileSettings,
           })}
-          onBreakpoint={(broken) => {
-            if (!broken) setShowMobileSettings(false);
+          onBreakpoint={broken => {
+            if (!broken) setShowMobileSettings(false)
           }}
         >
           {/* Settings: Grid Options */}
@@ -84,7 +80,7 @@ const HomePage = (): JSX.Element => {
               <span>Cell Size</span>
               <InputNumber
                 min={1}
-                onChange={(value) => setCellSize(value)}
+                onChange={value => setCellSize(value)}
                 onFocus={handleInputFocus}
                 size="small"
                 value={cellSize}
@@ -94,7 +90,7 @@ const HomePage = (): JSX.Element => {
               <span>Columns</span>
               <InputNumber
                 min={1}
-                onChange={(value) => setColumns(value)}
+                onChange={value => setColumns(value)}
                 onFocus={handleInputFocus}
                 size="small"
                 value={columns}
@@ -104,7 +100,7 @@ const HomePage = (): JSX.Element => {
               <span>Rows</span>
               <InputNumber
                 min={1}
-                onChange={(value) => setRows(value)}
+                onChange={value => setRows(value)}
                 onFocus={handleInputFocus}
                 size="small"
                 value={rows}
@@ -114,7 +110,7 @@ const HomePage = (): JSX.Element => {
               <span>Iterations</span>
               <InputNumber
                 min={1}
-                onChange={(value) => setIterations(value)}
+                onChange={value => setIterations(value)}
                 onFocus={handleInputFocus}
                 size="small"
                 value={iterations}
@@ -124,7 +120,7 @@ const HomePage = (): JSX.Element => {
               <span>Show Borders</span>
               <Switch
                 checked={showBorders}
-                onChange={(value) => setShowBorders(value)}
+                onChange={value => setShowBorders(value)}
                 size="small"
               />
             </label>
@@ -136,7 +132,7 @@ const HomePage = (): JSX.Element => {
               <span>Multiplier</span>
               <InputNumber
                 min={0}
-                onChange={(value) => setMultiplier(value)}
+                onChange={value => setMultiplier(value)}
                 onFocus={handleInputFocus}
                 size="small"
                 step={step}
@@ -153,7 +149,7 @@ const HomePage = (): JSX.Element => {
                   offset: showMobileSettings ? [0, -4] : [0, 4],
                 }}
                 dropdownMatchSelectWidth={false}
-                onChange={(value) => setStep(value)}
+                onChange={value => setStep(value)}
                 size="small"
               >
                 <Select.Option value="1">1</Select.Option>
@@ -168,7 +164,7 @@ const HomePage = (): JSX.Element => {
               <span>Auto Increment</span>
               <Switch
                 checked={isAutoIncrementing}
-                onChange={(value) => setIsAutoIncrementing(value)}
+                onChange={value => setIsAutoIncrementing(value)}
                 size="small"
               />
             </label>
@@ -177,9 +173,8 @@ const HomePage = (): JSX.Element => {
           <div className="info">
             <h4>WARNING</h4>
             <h5>
-              Rainbow Dance Party consumes a large amount of system resources.
-              The calculations required for each grid grow exponentially on each
-              iteration.
+              Rainbow Dance Party consumes a large amount of system resources. The
+              calculations required for each grid grow exponentially on each iteration.
             </h5>
             <h5>Please dance responsibly.</h5>
             <br />
@@ -278,7 +273,7 @@ const HomePage = (): JSX.Element => {
         }
       `}</style>
     </>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage

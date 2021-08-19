@@ -1,14 +1,14 @@
-import { memo } from 'react';
+import { memo } from 'react'
 
 type ColorGridProps = {
-  cellSize: number;
-  colorRange: number;
-  columns: number;
-  index: number;
-  multiplier: number;
-  rows: number;
-  showBorders: boolean;
-};
+  cellSize: number
+  colorRange: number
+  columns: number
+  index: number
+  multiplier: number
+  rows: number
+  showBorders: boolean
+}
 
 const ColorGrid = ({
   cellSize,
@@ -21,9 +21,8 @@ const ColorGrid = ({
 }: ColorGridProps): JSX.Element => {
   const setHue = (cellNumber: number) =>
     Math.round(
-      ((cellNumber * colorRange) / (columns * rows)) *
-        Math.pow(multiplier, index)
-    ) % colorRange || 0; // Default to `0` if value of `Infinity` is reached.
+      ((cellNumber * colorRange) / (columns * rows)) * Math.pow(multiplier, index)
+    ) % colorRange || 0 // Default to `0` if value of `Infinity` is reached.
 
   return (
     <>
@@ -31,7 +30,7 @@ const ColorGrid = ({
         {[...Array(columns)].map((column, columnIndex) => (
           <div className="color-grid__column" key={columnIndex}>
             {[...Array(rows)].map((row, rowIndex) => {
-              const cellNumber = columnIndex * rows + (rowIndex + 1);
+              const cellNumber = columnIndex * rows + (rowIndex + 1)
               return (
                 <div
                   className="color-grid__cell"
@@ -40,7 +39,7 @@ const ColorGrid = ({
                     backgroundColor: `hsl(${setHue(cellNumber)}, 100%, 50%)`,
                   }}
                 ></div>
-              );
+              )
             })}
           </div>
         ))}
@@ -71,7 +70,7 @@ const ColorGrid = ({
         }
       `}</style>
     </>
-  );
-};
+  )
+}
 
-export default memo(ColorGrid);
+export default memo(ColorGrid)
