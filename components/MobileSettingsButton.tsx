@@ -32,16 +32,16 @@ const MobileSettingsButton = ({ icon, onClick }: MobileSettingsButtonProps) => (
         }
       }
 
-      .ant-btn .anticon {
-        align-items: center;
-        display: inline-flex;
-        justify-content: center;
-      }
-
       .ant-btn:focus,
       .ant-btn:hover {
         border-color: var(--gray-500);
         color: inherit;
+      }
+
+      .ant-btn .anticon {
+        align-items: center;
+        display: inline-flex;
+        justify-content: center;
       }
     `}</style>
   </>
