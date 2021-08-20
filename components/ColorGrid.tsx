@@ -47,6 +47,7 @@ const ColorGrid = ({
         .color-grid {
           display: flex;
           flex-direction: row;
+          height: fit-content;
           margin-bottom: 1rem;
           margin-right: 1rem;
           width: fit-content;

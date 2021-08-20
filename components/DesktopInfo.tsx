@@ -9,7 +9,6 @@ const DesktopInfo = () => (
         required for each grid grow exponentially on each iteration.
       </h5>
       <h5>Please dance responsibly.</h5>
-      <br />
       <SourceCodeLink />
     </div>
 

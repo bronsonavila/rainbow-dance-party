@@ -50,6 +50,7 @@ const ColorGrids = ({
 
       @media (min-width: 768px) {
         .color-grids {
+          height: fit-content;
           justify-content: flex-start;
           margin: 1rem 0 0 calc(var(--main-menu-width) + 1rem);
         }
