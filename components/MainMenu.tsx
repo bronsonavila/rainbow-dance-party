@@ -34,6 +34,7 @@ const MainMenu = ({ children, className, onBreakpoint }: MainMenuProps) => (
         position: fixed;
         right: 1rem;
         width: var(--main-menu-width) !important;
+        z-index: 1;
       }
 
       .ant-layout-sider.show-mobile-settings {
