@@ -18,7 +18,7 @@ const ColorGrid = ({
   multiplier,
   rows,
   showBorders,
-}: ColorGridProps): JSX.Element => {
+}: ColorGridProps) => {
   const setHue = (cellNumber: number) =>
     Math.round(
       ((cellNumber * colorRange) / (columns * rows)) * Math.pow(multiplier, index)

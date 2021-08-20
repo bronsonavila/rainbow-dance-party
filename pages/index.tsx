@@ -1,14 +1,23 @@
-import { GithubOutlined, SettingFilled, SettingOutlined } from '@ant-design/icons'
-import { Alert, Button, InputNumber, Layout, Select, Switch } from 'antd'
-import React, { useEffect, useRef, useState } from 'react'
+import { SettingFilled, SettingOutlined } from '@ant-design/icons'
+import { Layout, Select } from 'antd'
+import { useEffect, useRef, useState } from 'react'
 
-import ColorGrid from 'components/ColorGrid'
+import NumberInput from 'components/inputs/NumberInput'
+import SelectInput from 'components/inputs/SelectInput'
+import SwitchInput from 'components/inputs/SwitchInput'
+import ColorGrids from 'components/ColorGrids'
+import DesktopInfo from 'components/DesktopInfo'
+import MainMenu from 'components/MainMenu'
 import Metadata from 'components/Metadata'
+import MobileAlert from 'components/MobileAlert'
+import MobileSettingsButton from 'components/MobileSettingsButton'
+import Settings from 'components/Settings'
+import SourceCodeLink from 'components/SourceCodeLink'
 import { getDecimalPlaces, getDeviceType } from 'utils'
 
 const classNames = require('classnames')
 
-const HomePage = (): JSX.Element => {
+const HomePage = () => {
   const autoIncrementTimerRef = useRef<number | undefined>(undefined)
   const [cellSize, setCellSize] = useState<number>(16)
   const [colorRange, setColorRange] = useState<number>(360)
@@ -22,12 +31,7 @@ const HomePage = (): JSX.Element => {
   const [showMobileSettings, setShowMobileSettings] = useState<boolean>(false)
   const [step, setStep] = useState<string>('0.001')
 
-  const handleInputFocus = (e: React.SyntheticEvent) => {
-    const inputElement = e.target as HTMLInputElement
-    inputElement.select()
-  }
-
-  // Apply different InputNumber styles when running on mobile devices.
+  // Apply different NumberInput styles when running on mobile devices.
   useEffect(() => {
     const deviceType = getDeviceType()
     setIsMobileDevice(deviceType !== 'desktop')
@@ -53,226 +57,86 @@ const HomePage = (): JSX.Element => {
   }, [multiplier, step])
 
   return (
-    <>
+    <Layout>
       <Metadata />
-      <Layout>
-        {/* Settings Button (Mobile) */}
-        <Button
-          icon={showMobileSettings ? <SettingOutlined /> : <SettingFilled />}
-          onClick={() => setShowMobileSettings(!showMobileSettings)}
-          shape="circle"
-          size="large"
-        />
-        <Layout.Sider
-          breakpoint="md"
-          className={classNames({
-            'is-mobile-device': isMobileDevice,
-            'show-mobile-settings': showMobileSettings,
-          })}
-          onBreakpoint={broken => {
-            if (!broken) setShowMobileSettings(false)
-          }}
-        >
-          {/* Settings: Grid Options */}
-          <div className="settings__group">
-            <h2>Grid Options</h2>
-            <label>
-              <span>Cell Size</span>
-              <InputNumber
-                min={1}
-                onChange={value => setCellSize(value)}
-                onFocus={handleInputFocus}
-                size="small"
-                value={cellSize}
-              />
-            </label>
-            <label>
-              <span>Columns</span>
-              <InputNumber
-                min={1}
-                onChange={value => setColumns(value)}
-                onFocus={handleInputFocus}
-                size="small"
-                value={columns}
-              />
-            </label>
-            <label>
-              <span>Rows</span>
-              <InputNumber
-                min={1}
-                onChange={value => setRows(value)}
-                onFocus={handleInputFocus}
-                size="small"
-                value={rows}
-              />
-            </label>
-            <label>
-              <span>Iterations</span>
-              <InputNumber
-                min={1}
-                onChange={value => setIterations(value)}
-                onFocus={handleInputFocus}
-                size="small"
-                value={iterations}
-              />
-            </label>
-            <label>
-              <span>Show Borders</span>
-              <Switch
-                checked={showBorders}
-                onChange={value => setShowBorders(value)}
-                size="small"
-              />
-            </label>
-          </div>
-          {/* Settings: Color Options */}
-          <div className="settings__group">
-            <h2>Color Options</h2>
-            <label>
-              <span>Multiplier</span>
-              <InputNumber
-                min={0}
-                onChange={value => setMultiplier(value)}
-                onFocus={handleInputFocus}
-                size="small"
-                step={step}
-                value={multiplier}
-              />
-            </label>
-            <label>
-              <span>Step</span>
-              <Select
-                defaultValue={step}
-                // See: https://github.com/ant-design/ant-design/issues/5130#issuecomment-283629010
-                dropdownAlign={{
-                  points: showMobileSettings ? ['bl', 'tl'] : ['tl', 'bl'],
-                  offset: showMobileSettings ? [0, -4] : [0, 4],
-                }}
-                dropdownMatchSelectWidth={false}
-                onChange={value => setStep(value)}
-                size="small"
-              >
-                <Select.Option value="1">1</Select.Option>
-                <Select.Option value="0.1">0.1</Select.Option>
-                <Select.Option value="0.01">0.01</Select.Option>
-                <Select.Option value="0.001">0.001</Select.Option>
-                <Select.Option value="0.0001">0.0001</Select.Option>
-                <Select.Option value="0.00001">0.00001</Select.Option>
-              </Select>
-            </label>
-            <label>
-              <span>Auto Increment</span>
-              <Switch
-                checked={isAutoIncrementing}
-                onChange={value => setIsAutoIncrementing(value)}
-                size="small"
-              />
-            </label>
-          </div>
-          {/* Info (Desktop) */}
-          <div className="info">
-            <h4>WARNING</h4>
-            <h5>
-              Rainbow Dance Party consumes a large amount of system resources. The
-              calculations required for each grid grow exponentially on each iteration.
-            </h5>
-            <h5>Please dance responsibly.</h5>
-            <br />
-            <a
-              className="footnote--desktop"
-              href="https://github.com/bronsonavila/rainbow-dance-party/"
-              rel="noreferrer"
-              target="_blank"
-            >
-              <GithubOutlined />
-              &nbsp;&nbsp;Source Code
-            </a>
-          </div>
-        </Layout.Sider>
-        {/* Info (Mobile) */}
-        <Alert
-          closable
-          message="WARNING: Rainbow Dance Party consumes a large amount of system resources. The calculations required for each grid grow exponentially on each iteration. Please dance responsibly."
-          type="warning"
-        />
-        {/* Color Grids */}
-        <div className="color-grids">
-          {[...Array(iterations)].map((colorGrid, index) => (
-            <ColorGrid
-              cellSize={cellSize}
-              colorRange={colorRange}
-              columns={columns}
-              index={index}
-              key={`color-grid__${index}`}
-              multiplier={Number(multiplier)}
-              rows={rows}
-              showBorders={showBorders}
-            />
-          ))}
-        </div>
-        {/* Footer (Mobile) */}
-        <a
-          className="footnote--mobile"
-          href="https://github.com/bronsonavila/rainbow-dance-party/"
-          rel="noreferrer"
-          target="_blank"
-        >
-          <GithubOutlined />
-          &nbsp;&nbsp;Source Code
-        </a>
-      </Layout>
-
-      <style jsx>{`
-        .color-grids {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          margin: 1rem 0 1.125rem 1rem;
-        }
-
-        @media (min-width: 768px) {
-          .color-grids {
-            justify-content: flex-start;
-            margin: 1rem 0 0 216px;
-          }
-        }
-
-        .footnote--desktop {
-          display: none;
-        }
-
-        .footnote--mobile {
-          margin: 0 0 1rem 1rem;
-        }
-
-        @media (min-width: 768px) {
-          .footnote--desktop {
-            display: inline;
-          }
-
-          .footnote--mobile {
-            display: none;
-          }
-        }
-
-        .info {
-          display: none;
-        }
-
-        @media (min-width: 768px) {
-          .info {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            justify-content: flex-end;
-          }
-        }
-
-        .settings__group:first-of-type {
-          margin-bottom: 2rem;
-        }
-      `}</style>
-    </>
+      <MobileSettingsButton
+        icon={showMobileSettings ? <SettingOutlined /> : <SettingFilled />}
+        onClick={() => setShowMobileSettings(!showMobileSettings)}
+      />
+      <MainMenu
+        className={classNames({
+          'is-mobile-device': isMobileDevice,
+          'show-mobile-settings': showMobileSettings,
+        })}
+        onBreakpoint={broken => {
+          if (!broken) setShowMobileSettings(false)
+        }}
+      >
+        <Settings title="Grid Options">
+          <NumberInput
+            label="Cell Size"
+            min={1}
+            onChange={setCellSize}
+            value={cellSize}
+          />
+          <NumberInput label="Columns" min={1} onChange={setColumns} value={columns} />
+          <NumberInput label="Rows" min={1} onChange={setRows} value={rows} />
+          <NumberInput
+            label="Iterations"
+            min={1}
+            onChange={setIterations}
+            value={iterations}
+          />
+          <SwitchInput
+            label="Show Borders"
+            checked={showBorders}
+            onChange={setShowBorders}
+          />
+        </Settings>
+        <Settings title="Color Options">
+          <NumberInput
+            label="Multiplier"
+            min={1}
+            onChange={setMultiplier}
+            step={step}
+            value={multiplier}
+          />
+          <SelectInput
+            label="Step"
+            defaultValue={step}
+            // See: https://github.com/ant-design/ant-design/issues/5130#issuecomment-283629010
+            dropdownAlign={{
+              points: showMobileSettings ? ['bl', 'tl'] : ['tl', 'bl'],
+              offset: showMobileSettings ? [0, -4] : [0, 4],
+            }}
+            onChange={setStep}
+          >
+            {['1', '0.1', '0.01', '0.001', '0.0001', '0.00001'].map(option => (
+              <Select.Option key={option} value={option}>
+                {option}
+              </Select.Option>
+            ))}
+          </SelectInput>
+          <SwitchInput
+            label="Auto Increment"
+            checked={isAutoIncrementing}
+            onChange={setIsAutoIncrementing}
+          />
+        </Settings>
+        <DesktopInfo />
+      </MainMenu>
+      <MobileAlert />
+      <ColorGrids
+        cellSize={cellSize}
+        colorRange={colorRange}
+        columns={columns}
+        iterations={iterations}
+        multiplier={Number(multiplier)}
+        rows={rows}
+        showBorders={showBorders}
+      />
+      <SourceCodeLink className="mobile-only" />
+    </Layout>
   )
 }
 
