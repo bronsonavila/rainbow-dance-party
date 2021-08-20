@@ -24,16 +24,16 @@ const MainMenu = ({ children, className, onBreakpoint }: MainMenuProps) => (
       }
 
       .ant-layout-sider {
-        background-color: #f5f7f9;
-        border: 1px solid #d9d9d9;
+        background-color: var(--gray-100);
+        border: 1px solid var(--gray-500);
         bottom: 4.5rem;
         display: none;
-        max-width: 200px !important;
+        max-width: var(--main-menu-width) !important;
         overflow: auto;
         padding: 1rem;
         position: fixed;
         right: 1rem;
-        width: 200px !important;
+        width: var(--main-menu-width) !important;
       }
 
       .ant-layout-sider.show-mobile-settings {
@@ -43,7 +43,7 @@ const MainMenu = ({ children, className, onBreakpoint }: MainMenuProps) => (
       @media (min-width: 768px) {
         .ant-layout-sider {
           border: 0;
-          border-right: 1px solid #d9d9d9;
+          border-right: 1px solid var(--gray-500);
           bottom: 0;
           display: flex;
           height: 100vh;

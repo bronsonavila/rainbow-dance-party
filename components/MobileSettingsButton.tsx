@@ -40,7 +40,7 @@ const MobileSettingsButton = ({ icon, onClick }: MobileSettingsButtonProps) => (
 
       .ant-btn:focus,
       .ant-btn:hover {
-        border-color: #d9d9d9;
+        border-color: var(--gray-500);
         color: inherit;
       }
     `}</style>

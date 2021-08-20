@@ -53,8 +53,8 @@ const ColorGrid = ({
         }
 
         .show-borders .color-grid {
-          border-left: 1px solid #3c3c3c;
-          border-top: 1px solid #3c3c3c;
+          border-left: 1px solid var(--gray-900);
+          border-top: 1px solid var(--gray-900);
         }
 
         .color-grid__column {
@@ -69,8 +69,8 @@ const ColorGrid = ({
         }
 
         .show-borders .color-grid__cell {
-          border-bottom: 1px solid #3c3c3c;
-          border-right: 1px solid #3c3c3c;
+          border-bottom: 1px solid var(--gray-900);
+          border-right: 1px solid var(--gray-900);
         }
       `}</style>
     </>
