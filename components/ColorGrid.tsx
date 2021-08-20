@@ -7,7 +7,6 @@ type ColorGridProps = {
   index: number
   multiplier: number
   rows: number
-  showBorders: boolean
 }
 
 const ColorGrid = ({
@@ -17,7 +16,6 @@ const ColorGrid = ({
   index,
   multiplier,
   rows,
-  showBorders,
 }: ColorGridProps) => {
   const setHue = (cellNumber: number) =>
     Math.round(
@@ -27,9 +25,9 @@ const ColorGrid = ({
   return (
     <>
       <div className="color-grid">
-        {[...Array(columns)].map((column, columnIndex) => (
+        {[...Array(columns)].map((_, columnIndex) => (
           <div className="color-grid__column" key={columnIndex}>
-            {[...Array(rows)].map((row, rowIndex) => {
+            {[...Array(rows)].map((_, rowIndex) => {
               const cellNumber = columnIndex * rows + (rowIndex + 1)
               return (
                 <div
@@ -45,15 +43,18 @@ const ColorGrid = ({
         ))}
       </div>
 
-      <style jsx>{`
+      <style global jsx>{`
         .color-grid {
-          border-left: ${showBorders ? '1px solid #3c3c3c' : 0};
-          border-top: ${showBorders ? '1px solid #3c3c3c' : 0};
           display: flex;
           flex-direction: row;
           margin-bottom: 1rem;
           margin-right: 1rem;
           width: fit-content;
+        }
+
+        .show-borders .color-grid {
+          border-left: 1px solid #3c3c3c;
+          border-top: 1px solid #3c3c3c;
         }
 
         .color-grid__column {
@@ -63,10 +64,13 @@ const ColorGrid = ({
         }
 
         .color-grid__cell {
-          border-bottom: ${showBorders ? '1px solid #3c3c3c' : 0};
-          border-right: ${showBorders ? '1px solid #3c3c3c' : 0};
           height: ${cellSize}px;
           width: ${cellSize}px;
+        }
+
+        .show-borders .color-grid__cell {
+          border-bottom: 1px solid #3c3c3c;
+          border-right: 1px solid #3c3c3c;
         }
       `}</style>
     </>

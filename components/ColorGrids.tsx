@@ -1,5 +1,7 @@
 import ColorGrid from 'components/ColorGrid'
 
+const classNames = require('classnames')
+
 type ColorGridsProps = {
   cellSize: number
   colorRange: number
@@ -20,7 +22,11 @@ const ColorGrids = ({
   showBorders,
 }: ColorGridsProps) => (
   <>
-    <div className="color-grids">
+    <div
+      className={classNames('color-grids', {
+        'show-borders': showBorders,
+      })}
+    >
       {[...Array(iterations)].map((_, index) => (
         <ColorGrid
           cellSize={cellSize}
@@ -30,7 +36,6 @@ const ColorGrids = ({
           key={`color-grid__${index}`}
           multiplier={Number(multiplier)}
           rows={rows}
-          showBorders={showBorders}
         />
       ))}
     </div>
