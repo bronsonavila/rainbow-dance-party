@@ -36,7 +36,7 @@ const ColorGrid = ({
                   style={{
                     backgroundColor: `hsl(${setHue(cellNumber)}, 100%, 50%)`,
                   }}
-                ></div>
+                />
               )
             })}
           </div>
