@@ -18,14 +18,14 @@ import { getDecimalPlaces, getDeviceType } from 'utils'
 const classNames = require('classnames')
 
 const HomePage = () => {
-  const autoIncrementTimerRef = useRef<number | undefined>(undefined)
+  const autoIncrementTimeoutRef = useRef<number | undefined>(undefined)
   const [cellSize, setCellSize] = useState<number>(16)
   const [colorRange, setColorRange] = useState<number>(360)
   const [columns, setColumns] = useState<number>(16)
   const [isAutoIncrementing, setIsAutoIncrementing] = useState<boolean>(false)
   const [isMobileDevice, setIsMobileDevice] = useState<boolean | null>(null)
   const [iterations, setIterations] = useState<number>(8)
-  const [multiplier, setMultiplier] = useState<number | string>(2.333)
+  const [multiplier, setMultiplier] = useState<number>(2.333)
   const [rows, setRows] = useState<number>(16)
   const [showBorders, setShowBorders] = useState<boolean>(true)
   const [showMobileSettings, setShowMobileSettings] = useState<boolean>(false)
@@ -37,24 +37,19 @@ const HomePage = () => {
     setIsMobileDevice(deviceType !== 'desktop')
   }, [])
 
-  // Toggle auto incrementer on/off.
+  // Adjust multiplier based on chosen step value (either automatically or manually).
   useEffect(() => {
-    clearInterval(autoIncrementTimerRef.current)
+    clearTimeout(autoIncrementTimeoutRef.current)
     if (isAutoIncrementing) {
-      autoIncrementTimerRef.current = window.setInterval(() => {
+      autoIncrementTimeoutRef.current = window.setTimeout(() => {
         setMultiplier(multiplier =>
-          (Number(multiplier) + Number(step)).toFixed(getDecimalPlaces(step))
+          Number((multiplier + Number(step)).toFixed(getDecimalPlaces(step)))
         )
       }, 100)
+    } else {
+      setMultiplier(Number(multiplier.toFixed(getDecimalPlaces(step))))
     }
   }, [isAutoIncrementing, multiplier, step])
-
-  // Adjust multiplier's decimal places based on chosen step value.
-  // NOTE: multiplier must be allowed to have a type of either `number | string`
-  // to allow for the automatic appending of 0's when increasing the step.
-  useEffect(() => {
-    setMultiplier(Number(multiplier).toFixed(getDecimalPlaces(step)))
-  }, [multiplier, step])
 
   return (
     <>
@@ -98,7 +93,7 @@ const HomePage = () => {
             <NumberInput
               label="Multiplier"
               min={1}
-              onChange={setMultiplier}
+              onChange={value => (!isAutoIncrementing ? setMultiplier(value) : null)}
               step={step}
               value={multiplier}
             />
@@ -132,7 +127,7 @@ const HomePage = () => {
           colorRange={colorRange}
           columns={columns}
           iterations={iterations}
-          multiplier={Number(multiplier)}
+          multiplier={multiplier}
           rows={rows}
           showBorders={showBorders}
         />

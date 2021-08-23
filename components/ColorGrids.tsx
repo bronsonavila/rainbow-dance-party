@@ -34,7 +34,7 @@ const ColorGrids = ({
           columns={columns}
           index={index}
           key={`color-grid__${index}`}
-          multiplier={Number(multiplier)}
+          multiplier={multiplier}
           rows={rows}
         />
       ))}

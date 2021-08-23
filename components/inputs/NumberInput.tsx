@@ -6,7 +6,7 @@ type NumberInputProps = {
   min?: number
   onChange: (value: number) => void
   step?: number | string
-  value: number | string
+  value: number
 }
 
 const handleInputFocus = (e: SyntheticEvent) => {
@@ -24,8 +24,6 @@ const NumberInput = ({ label, min = 0, onChange, step = 1, value }: NumberInputP
         onFocus={handleInputFocus}
         size="small"
         step={step}
-        // @ts-ignore: Ant Design's InputNumber requires that `value` be a number, but
-        // this app allows the value of `multiplier` to be either a number or a string.
         value={value}
       />
     </label>
