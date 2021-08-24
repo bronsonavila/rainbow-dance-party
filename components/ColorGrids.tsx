@@ -4,7 +4,6 @@ import ColorGrid from 'components/ColorGrid'
 
 type ColorGridsProps = {
   cellSize: number
-  colorRange: number
   columns: number
   iterations: number
   multiplier: number
@@ -14,7 +13,6 @@ type ColorGridsProps = {
 
 const ColorGrids = ({
   cellSize,
-  colorRange,
   columns,
   iterations,
   multiplier,
@@ -30,7 +28,6 @@ const ColorGrids = ({
       {[...Array(iterations)].map((_: JSX.Element, index) => (
         <ColorGrid
           cellSize={cellSize}
-          colorRange={colorRange}
           columns={columns}
           index={index}
           key={`color-grid__${index}`}

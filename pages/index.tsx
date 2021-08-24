@@ -19,7 +19,6 @@ import { getDecimalPlaces, getDeviceType } from 'utils'
 const HomePage = () => {
   const autoIncrementTimeoutRef = useRef<number | undefined>(undefined)
   const [cellSize, setCellSize] = useState<number>(16)
-  const [colorRange, setColorRange] = useState<number>(360)
   const [columns, setColumns] = useState<number>(16)
   const [isAutoIncrementing, setIsAutoIncrementing] = useState<boolean>(false)
   const [isMobileDevice, setIsMobileDevice] = useState<boolean | null>(null)
@@ -123,7 +122,6 @@ const HomePage = () => {
         <MobileAlert />
         <ColorGrids
           cellSize={cellSize}
-          colorRange={colorRange}
           columns={columns}
           iterations={iterations}
           multiplier={multiplier}

@@ -2,25 +2,17 @@ import { memo } from 'react'
 
 type ColorGridProps = {
   cellSize: number
-  colorRange: number
   columns: number
   index: number
   multiplier: number
   rows: number
 }
 
-const ColorGrid = ({
-  cellSize,
-  colorRange,
-  columns,
-  index,
-  multiplier,
-  rows,
-}: ColorGridProps) => {
-  const setHue = (cellNumber: number) =>
-    Math.round(
-      ((cellNumber * colorRange) / (columns * rows)) * Math.pow(multiplier, index)
-    ) % colorRange || 0 // Default to `0` if value of `Infinity` is reached.
+const ColorGrid = ({ cellSize, columns, index, multiplier, rows }: ColorGridProps) => {
+  // Returns a color hue ranging from 0 to 360. Defaults to 0 if `Infinity` is reached.
+  const setHue = (cellNumber: number): number =>
+    Math.round(((cellNumber * 360) / (columns * rows)) * Math.pow(multiplier, index)) %
+      360 || 0
 
   return (
     <>
