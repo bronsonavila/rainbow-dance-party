@@ -1,5 +1,6 @@
 import { SettingFilled, SettingOutlined } from '@ant-design/icons'
 import { Layout, Select } from 'antd'
+import classnames from 'classnames'
 import { useEffect, useRef, useState } from 'react'
 
 import NumberInput from 'components/inputs/NumberInput'
@@ -14,8 +15,6 @@ import MobileSettingsButton from 'components/MobileSettingsButton'
 import Settings from 'components/Settings'
 import SourceCodeLink from 'components/SourceCodeLink'
 import { getDecimalPlaces, getDeviceType } from 'utils'
-
-const classNames = require('classnames')
 
 const HomePage = () => {
   const autoIncrementTimeoutRef = useRef<number | undefined>(undefined)
@@ -60,7 +59,7 @@ const HomePage = () => {
           onClick={() => setShowMobileSettings(!showMobileSettings)}
         />
         <MainMenu
-          className={classNames({
+          className={classnames({
             'is-mobile-device': isMobileDevice,
             'show-mobile-settings': showMobileSettings,
           })}

@@ -3,7 +3,7 @@ import { Layout } from 'antd'
 type MainMenuProps = {
   children: JSX.Element | JSX.Element[]
   className: string
-  onBreakpoint: (broken: any) => void
+  onBreakpoint: (broken: boolean) => void
 }
 
 const MainMenu = ({ children, className, onBreakpoint }: MainMenuProps) => (

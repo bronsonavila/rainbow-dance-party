@@ -1,6 +1,6 @@
-import ColorGrid from 'components/ColorGrid'
+import classnames from 'classnames'
 
-const classNames = require('classnames')
+import ColorGrid from 'components/ColorGrid'
 
 type ColorGridsProps = {
   cellSize: number
@@ -23,11 +23,11 @@ const ColorGrids = ({
 }: ColorGridsProps) => (
   <>
     <div
-      className={classNames('color-grids', {
+      className={classnames('color-grids', {
         'show-borders': showBorders,
       })}
     >
-      {[...Array(iterations)].map((_, index) => (
+      {[...Array(iterations)].map((_: JSX.Element, index) => (
         <ColorGrid
           cellSize={cellSize}
           colorRange={colorRange}
