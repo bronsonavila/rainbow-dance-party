@@ -1,4 +1,6 @@
-export const getDecimalPlaces = (step: string): number => step.split('.')[1]?.length || 0
+// Returns the number of decimal places in a stringified float (e.g., '0.001' => 3).
+export const getDecimalPlaces = (floatStr: string): number =>
+  floatStr.split('.')[1]?.length || 0
 
 // See: https://attacomsian.com/blog/javascript-detect-mobile-device
 export const getDeviceType = (): string => {
