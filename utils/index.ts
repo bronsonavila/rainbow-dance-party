@@ -3,7 +3,7 @@ export const getDecimalPlaces = (floatStr: string): number =>
   floatStr.split('.')[1]?.length || 0
 
 // See: https://attacomsian.com/blog/javascript-detect-mobile-device
-export const getDeviceType = (): string => {
+export const getDeviceType = (): 'tablet' | 'mobile' | 'desktop' => {
   const ua = navigator.userAgent
 
   if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
