@@ -2,7 +2,7 @@ import type { AppProps } from 'next/app'
 import Script from 'next/script'
 
 import 'antd/dist/antd.css'
-import 'styles/globals.css'
+import 'styles/global.css'
 
 /**
  * App includes PostHog analytics script, although the method of loading the script may not be ideal.
